@@ -1,0 +1,21 @@
+# VCS
+.git
+.gitignore
+
+# Node
+node_modules
+
+# Local build output (we build inside the image)
+dist
+
+# IDE/OS
+.vscode
+.idea
+.DS_Store
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+

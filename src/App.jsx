@@ -1,0 +1,585 @@
+import { useState, useEffect } from "react";
+import {
+  Github,
+  Linkedin,
+  Mail,
+  MapPin,
+  ExternalLink,
+  ChevronDown,
+  FileText,
+  X,
+  ArrowLeft,
+} from "lucide-react";
+import { Button } from "@/components/ui/button.jsx";
+import profilePicture from "./assets/photo.jpg";
+import "./App.css";
+
+function App() {
+  const [isDark, setIsDark] = useState(true);
+  const [selectedProject, setSelectedProject] = useState(null);
+
+  useEffect(() => {
+    if (isDark) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [isDark]);
+
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const projects = [
+    {
+      id: "table-extractor",
+      title: "Deep Learning-based Table Extraction from Pharmaceutical PDFs",
+      shortDescription:
+        "Fine-tuned transformer-based model for automated table extraction with 94% precision",
+      fullDescription:
+        "A comprehensive research-focused pipeline for extracting tables from PDFs using state-of-the-art DETR-based models (Table Transformer). This project was developed as part of my Bachelor thesis at Novo Nordisk to automate the extraction of structured data from pharmaceutical documents. The system combines computer vision, deep learning, and OCR technologies to achieve high-precision table detection and structure recognition.",
+      features: [
+        "PDF to table extraction using Table Transformer models",
+        "Docker containerized application with Flask API",
+        "Frontend interface for easy interaction",
+        "OCR integration with EasyOCR",
+        "Supports both table detection and structure recognition",
+        "Comprehensive postprocessing pipeline",
+      ],
+      tech: [
+        "Python",
+        "PyTorch",
+        "Transformers",
+        "Computer Vision",
+        "Flask",
+        "Docker",
+        "OCR",
+      ],
+      company: "Novo Nordisk",
+      year: "2025",
+      github: "https://github.com/rifolio/TableExtractorDETR",
+      coverImage: "/api/placeholder/600/300",
+      impact:
+        "Reduced manual processing time and improved data consistency for pharmaceutical document analysis",
+    },
+    {
+      id: "podcast-prediction",
+      title: "Podcast Watch Time Prediction",
+      shortDescription:
+        "ML models predicting podcast engagement using XGBoost and advanced feature engineering",
+      fullDescription:
+        "A comprehensive data science project focused on predicting podcast listening time using machine learning techniques. The project involved extensive exploratory data analysis, feature engineering, and model optimization to understand and predict user engagement patterns in podcast consumption. This work was completed as the final project for the Data Science course at RUC University.",
+      features: [
+        "Predictive modeling with XGBoost and Linear Regression",
+        "Advanced feature engineering and EDA",
+        "Optuna optimization for hyperparameter tuning",
+        "Kaggle competition dataset analysis",
+        "Comprehensive statistical analysis",
+        "Model performance evaluation and comparison",
+      ],
+      tech: [
+        "Python",
+        "XGBoost",
+        "Optuna",
+        "Data Science",
+        "Pandas",
+        "Scikit-learn",
+      ],
+      year: "2025",
+      github: "https://github.com/rifolio/PodcastWatchTimePrediction",
+      coverImage: "/api/placeholder/600/300",
+      impact:
+        "Delivered insights for content planning and user engagement optimization",
+    },
+    {
+      id: "statistical-models",
+      title: "Statistical Analysis of Fruit Fly Fecundity",
+      shortDescription:
+        "Advanced statistical modeling using ANOVA and post-hoc tests for genetic research",
+      fullDescription:
+        "A rigorous statistical analysis project exploring the fecundity of fruit flies (Drosophila melanogaster) across different genetic lines. The study employed advanced statistical methods including one-way ANOVA and Tukey's HSD post-hoc tests to investigate differences between DDT-resistant, DDT-susceptible, and control strains. This collaborative research project achieved the highest grade and demonstrated proficiency in statistical modeling and hypothesis testing.",
+      features: [
+        "One-way ANOVA analysis across genetic lines",
+        "Tukey's HSD Post-Hoc Test for pairwise comparisons",
+        "T-Test statistical comparisons",
+        "Analysis of three genetic lines (RS, SS, NS)",
+        "Comprehensive statistical report with visualizations",
+        "Collaborative research methodology",
+      ],
+      tech: [
+        "Python",
+        "Statistical Analysis",
+        "Jupyter Notebook",
+        "Data Visualization",
+      ],
+      year: "2024",
+      github: "https://github.com/rifolio/StatisticalModels",
+      coverImage: "/api/placeholder/600/300",
+      grade: "12 (Highest grade)",
+      impact:
+        "Contributed to understanding of genetic selection effects on reproductive fitness",
+    },
+    {
+      id: "api-integration",
+      title: "API Integration Platform",
+      shortDescription:
+        "Automated CRM data integration using BERT AI and intelligent schema matching",
+      fullDescription:
+        "An intelligent API integration platform designed to automate CRM data synchronization across multiple platforms. The system uses BERT AI for semantic schema matching and REGEX for pattern recognition, enabling seamless data flow between different business systems. The project included the development of a conversational chatbot interface for enhanced user interaction and system management.",
+      features: [
+        "Automated schema matching with BERT AI",
+        "REGEX-based pattern recognition",
+        "REST API integrations with HubSpot and ClickUp",
+        "Telegram chatbot interface",
+        "Real-time data synchronization",
+        "Intelligent error handling and logging",
+      ],
+      tech: ["Python", "BERT", "REST API", "Telegram Bot", "NLP"],
+      company: "Focalx",
+      year: "2024",
+      coverImage: "/api/placeholder/600/300",
+      impact: "Streamlined CRM workflows and reduced manual data entry by 80%",
+    },
+    {
+      id: "ai-chatbot",
+      title: "AI Customer Support Chatbot",
+      shortDescription:
+        "LLM-powered chatbot achieving 86% accuracy and handling 5,500+ monthly inquiries",
+      fullDescription:
+        "A sophisticated AI-powered customer support system built using large language models to handle customer inquiries automatically. The chatbot demonstrates advanced natural language understanding and multi-turn dialogue capabilities, significantly improving response times and customer satisfaction. The system processes thousands of inquiries monthly while maintaining high accuracy rates.",
+      features: [
+        "86% intent recognition accuracy",
+        "70% reduction in average response time",
+        "Handles 51% of all inbound inquiries (~5,500/month)",
+        "Multi-turn dialogue capabilities",
+        "Real-time response generation",
+        "Comprehensive analytics and monitoring",
+      ],
+      tech: ["Python", "LLMs", "FastAPI", "AWS", "NLP"],
+      company: "Tryp.com",
+      year: "2024",
+      coverImage: "/api/placeholder/600/300",
+      impact:
+        "Transformed customer support operations with significant cost savings and improved user experience",
+    },
+    {
+      id: "refugee-assistant",
+      title: "AI Assistant for Refugees",
+      shortDescription:
+        "Multilingual AI chatbot on AWS providing 24/7 social support and booking integration",
+      fullDescription:
+        "A comprehensive AI assistant system designed to provide multilingual social support for refugees. Built on AWS Bedrock with a microservice architecture, the system offers 24/7 availability across multiple communication channels. The platform integrates advanced RAG (Retrieval-Augmented Generation) capabilities with real-time booking systems to provide practical assistance and emotional support.",
+      features: [
+        "24/7 multilingual social support",
+        "AWS Bedrock integration",
+        "Microservice architecture with Lambda and DynamoDB",
+        "RAG pipeline for contextual responses",
+        "Telegram and WhatsApp frontend integration",
+        "EasyWeek API booking integration",
+      ],
+      tech: [
+        "AWS",
+        "Lambda",
+        "DynamoDB",
+        "RAG",
+        "Telegram",
+        "WhatsApp",
+        "Bedrock",
+      ],
+      company: "Bevar Ukraine",
+      year: "2025",
+      coverImage: "/api/placeholder/600/300",
+      impact:
+        "Provided critical support services to refugee communities with scalable cloud infrastructure",
+    },
+  ];
+
+  const skills = {
+    "Programming Languages": ["Python", "Java", "C#", "JavaScript"],
+    "AI & ML": [
+      "LLaMA AI",
+      "OpenAI",
+      "PyTorch",
+      "TensorFlow",
+      "Scikit Learn",
+      "DSPy",
+      "LangChain",
+    ],
+    "Cloud & DevOps": ["AWS", "GCP", "Git", "REST API", "FastAPI"],
+    "Data & Analytics": [
+      "MySQL",
+      "Pandas",
+      "NumPy",
+      "Matplotlib",
+      "Seaborn",
+      "SciPy",
+    ],
+    "Vector Databases": ["Pinecone", "ChromaDB"],
+    "Other Tools": [
+      "LangGraph",
+      "LangSmith",
+      "HuggingFace",
+      "LaTeX",
+      "Pydantic",
+      "MCP",
+    ],
+  };
+
+  const ProjectModal = ({ project, onClose }) => {
+    if (!project) return null;
+
+    return (
+      <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div className="bg-card border border-border rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+          <div className="sticky top-0 bg-card border-b border-border p-6 flex items-center justify-between">
+            <Button variant="ghost" size="sm" onClick={onClose}>
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Back to Projects
+            </Button>
+            <Button variant="ghost" size="sm" onClick={onClose}>
+              <X className="w-4 h-4" />
+            </Button>
+          </div>
+
+          <div className="p-6">
+            <div className="mb-6">
+              <div className="w-full h-64 bg-muted rounded-lg mb-6 flex items-center justify-center">
+                <span className="text-muted-foreground">
+                  Project Cover Image
+                </span>
+              </div>
+
+              <div className="flex items-start justify-between mb-4">
+                <div className="flex-1">
+                  <h2 className="text-2xl font-bold mb-2">{project.title}</h2>
+                  <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
+                    {project.company && <span>{project.company}</span>}
+                    <span>{project.year}</span>
+                    {project.grade && (
+                      <span className="text-primary font-medium">
+                        {project.grade}
+                      </span>
+                    )}
+                  </div>
+                </div>
+                <div className="flex gap-2">
+                  {project.github && (
+                    <Button variant="outline" size="sm" asChild>
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Github className="w-4 h-4 mr-2" />
+                        GitHub
+                      </a>
+                    </Button>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-6">
+              <div>
+                <h3 className="text-lg font-semibold mb-3">Overview</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  {project.fullDescription}
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-semibold mb-3">Key Features</h3>
+                <ul className="space-y-2">
+                  {project.features.map((feature, index) => (
+                    <li key={index} className="flex items-start">
+                      <span className="w-2 h-2 bg-primary rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                      <span className="text-muted-foreground">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-semibold mb-3">
+                  Technologies Used
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {project.tech.map((tech, index) => (
+                    <span
+                      key={index}
+                      className="px-3 py-1 bg-primary/10 text-primary text-sm rounded-full"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {project.impact && (
+                <div>
+                  <h3 className="text-lg font-semibold mb-3">
+                    Impact & Results
+                  </h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {project.impact}
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  return (
+    <div className="min-h-screen bg-background text-foreground">
+      {/* Hero Section */}
+      <section className="min-h-screen flex items-center justify-center px-6 relative">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="mb-8">
+            <img
+              src={profilePicture}
+              alt="Vladyslav Horbatenko"
+              className="w-32 h-32 rounded-full mx-auto mb-6 object-cover border-2 border-border"
+            />
+            <h1 className="text-5xl md:text-7xl font-bold mb-4 bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
+              Vladyslav Horbatenko
+            </h1>
+            <p className="text-xl md:text-2xl text-muted-foreground mb-2">
+              AI Engineer & Computer Science Student
+            </p>
+            <div className="flex items-center justify-center gap-2 text-muted-foreground mb-8">
+              <MapPin className="w-4 h-4" />
+              <span>Copenhagen, Denmark</span>
+            </div>
+          </div>
+
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 leading-relaxed">
+            Currently pursuing MSc in Human-Centered AI at DTU. Passionate about
+            developing intelligent systems that solve real-world problems
+            through machine learning, natural language processing, and cloud
+            technologies.
+          </p>
+
+          <div className="flex justify-center gap-4 mb-12">
+            <Button variant="outline" size="lg" asChild>
+              <a
+                href="https://github.com/rifolio"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Github className="w-5 h-5 mr-2" />
+                GitHub
+              </a>
+            </Button>
+            <Button variant="outline" size="lg" asChild>
+              <a
+                href="https://www.linkedin.com/in/vladyslav-horbatenko/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Linkedin className="w-5 h-5 mr-2" />
+                LinkedIn
+              </a>
+            </Button>
+            <Button variant="outline" size="lg" asChild>
+              <a href="mailto:vladyslav.horbatenko.work@gmail.com">
+                <Mail className="w-5 h-5 mr-2" />
+                Contact
+              </a>
+            </Button>
+            <Button size="lg" asChild>
+              <a href="/CV.pdf" target="_blank" rel="noopener noreferrer">
+                <FileText className="w-5 h-5 mr-2" />
+                CV
+              </a>
+            </Button>
+          </div>
+
+          <button
+            onClick={() => scrollToSection("projects")}
+            className="animate-bounce text-muted-foreground hover:text-foreground transition-colors"
+          >
+            <ChevronDown className="w-8 h-8" />
+          </button>
+        </div>
+      </section>
+
+      {/* Projects Section */}
+      <section id="projects" className="py-20 px-6">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
+            Featured Projects
+          </h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {projects.map((project, index) => (
+              <div
+                key={index}
+                className="bg-card border border-border rounded-lg overflow-hidden hover:border-primary/50 transition-all duration-300 cursor-pointer group"
+                onClick={() => setSelectedProject(project)}
+              >
+                <div className="h-48 bg-muted flex items-center justify-center">
+                  <span className="text-muted-foreground">Project Cover</span>
+                </div>
+                <div className="p-6">
+                  <div className="flex justify-between items-start mb-3">
+                    <h3 className="text-lg font-semibold leading-tight group-hover:text-primary transition-colors">
+                      {project.title}
+                    </h3>
+                    <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                  </div>
+                  <p className="text-muted-foreground mb-4 text-sm leading-relaxed line-clamp-3">
+                    {project.shortDescription}
+                  </p>
+                  <div className="flex flex-wrap gap-2 mb-3">
+                    {project.tech.slice(0, 3).map((tech, i) => (
+                      <span
+                        key={i}
+                        className="px-2 py-1 bg-primary/10 text-primary text-xs rounded-md"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                    {project.tech.length > 3 && (
+                      <span className="px-2 py-1 bg-muted text-muted-foreground text-xs rounded-md">
+                        +{project.tech.length - 3} more
+                      </span>
+                    )}
+                  </div>
+                  <div className="flex justify-between items-center text-xs text-muted-foreground">
+                    {project.company && <span>{project.company}</span>}
+                    <span>{project.year}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Skills Section */}
+      <section id="skills" className="py-20 px-6 bg-muted/30">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
+            Skills & Technologies
+          </h2>
+          <div className="grid md:grid-cols-2 gap-8">
+            {Object.entries(skills).map(([category, skillList], index) => (
+              <div
+                key={index}
+                className="border border-border rounded-lg p-6 bg-card"
+              >
+                <h3 className="text-lg font-semibold mb-4 text-primary">
+                  {category}
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {skillList.map((skill, i) => (
+                    <span
+                      key={i}
+                      className="px-3 py-1 bg-muted text-muted-foreground text-sm rounded-full"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Education Section */}
+      <section id="education" className="py-20 px-6">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
+            Education
+          </h2>
+          <div className="space-y-6">
+            <div className="border border-border rounded-lg p-6 bg-card">
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
+                <div>
+                  <h3 className="text-xl font-semibold">
+                    MSc in Human-Centered Artificial Intelligence
+                  </h3>
+                  <p className="text-primary font-medium">
+                    Technical University of Denmark (DTU)
+                  </p>
+                </div>
+                <p className="text-sm font-medium mt-2 md:mt-0">
+                  Sep 2025 - Jun 2027
+                </p>
+              </div>
+            </div>
+            <div className="border border-border rounded-lg p-6 bg-card">
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
+                <div>
+                  <h3 className="text-xl font-semibold">
+                    BSc in Computer Science and Mathematics
+                  </h3>
+                  <p className="text-primary font-medium">
+                    Roskilde University (RUC)
+                  </p>
+                </div>
+                <p className="text-sm font-medium mt-2 md:mt-0">
+                  Sep 2022 - Jun 2025
+                </p>
+              </div>
+              <p className="text-muted-foreground text-sm mt-2">
+                Graduated with focus on AI, machine learning, and mathematical
+                modeling
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section id="contact" className="py-20 px-6 bg-muted/30">
+        <div className="max-w-2xl mx-auto text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-8">Get In Touch</h2>
+          <p className="text-lg text-muted-foreground mb-8">
+            I'm always interested in discussing new opportunities,
+            collaborations, or just chatting about AI and technology.
+          </p>
+          <div className="flex justify-center gap-4">
+            <Button size="lg" asChild>
+              <a href="mailto:vladyslav.horbatenko.work@gmail.com">
+                <Mail className="w-5 h-5 mr-2" />
+                Send Email
+              </a>
+            </Button>
+            <Button variant="outline" size="lg" asChild>
+              <a
+                href="https://www.linkedin.com/in/vladyslav-horbatenko/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Linkedin className="w-5 h-5 mr-2" />
+                LinkedIn
+              </a>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="py-8 px-6 border-t border-border">
+        <div className="max-w-4xl mx-auto text-center text-muted-foreground">
+          <p>&copy; 2025 Vladyslav Horbatenko.</p>
+        </div>
+      </footer>
+
+      {/* Project Modal */}
+      <ProjectModal
+        project={selectedProject}
+        onClose={() => setSelectedProject(null)}
+      />
+    </div>
+  );
+}
+
+export default App;
