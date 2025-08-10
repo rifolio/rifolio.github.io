@@ -335,6 +335,8 @@ function App() {
     );
   };
 
+  const cvHref = import.meta.env.BASE_URL + "CV.pdf";
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* Hero Section */}
@@ -393,7 +395,7 @@ function App() {
               </a>
             </Button>
             <Button size="lg" asChild>
-              <a href="/CV.pdf" target="_blank" rel="noopener noreferrer">
+              <a href={cvHref} target="_blank" rel="noopener noreferrer">
                 <FileText className="w-5 h-5 mr-2" />
                 CV
               </a>
