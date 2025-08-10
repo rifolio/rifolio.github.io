@@ -14,6 +14,10 @@ import { Button } from "@/components/ui/button.jsx";
 import profilePicture from "./assets/photo.jpg";
 import coverDeepLearning from "./assets/DeepLearningBSc.png";
 import coverFruitFlies from "./assets/FruitFliesProject.png";
+import coverBevar from "./assets/BevarVictor.png";
+import coverFocolax from "./assets/Focolax.png";
+import coverSandra from "./assets/Sandra.png";
+import coverPodcast from "./assets/PodcastListenTime.png";
 import "./App.css";
 
 function App() {
@@ -36,6 +40,65 @@ function App() {
   };
 
   const projects = [
+    // Tryp
+    {
+      id: "ai-chatbot",
+      title: "AI Customer Support Chatbot",
+      shortDescription:
+        "LLM-powered chatbot achieving 86% accuracy and handling 5,500+ monthly inquiries",
+      fullDescription:
+        "A sophisticated AI-powered customer support system built using large language models to handle customer inquiries automatically. The chatbot demonstrates advanced natural language understanding and multi-turn dialogue capabilities, significantly improving response times and customer satisfaction. The system processes thousands of inquiries monthly while maintaining high accuracy rates.",
+      features: [
+        "86% intent recognition accuracy",
+        "70% reduction in average response time",
+        "Handles 51% of all inbound inquiries (~5,500/month)",
+        "Multi-turn dialogue capabilities",
+        "Real-time response generation",
+        "Comprehensive analytics and monitoring",
+      ],
+      tech: ["Python", "LLMs", "FastAPI", "AWS", "NLP"],
+      company: "Tryp.com",
+      year: "2024-2025",
+      coverImage: coverSandra,
+      coverImageAlt: "Tryp.com AI customer support chatbot (Sandra)",
+      impact:
+        "Transformed customer support operations with significant cost savings and improved user experience",
+    },
+
+    // Bevar
+    {
+      id: "refugee-assistant",
+      title: "AI Assistant for Refugees",
+      shortDescription:
+        "Multilingual AI chatbot on AWS providing 24/7 social support and booking integration",
+      fullDescription:
+        "A comprehensive AI assistant system designed to provide multilingual social support for refugees. Built on AWS Bedrock with a microservice architecture, the system offers 24/7 availability across multiple communication channels. The platform integrates advanced RAG (Retrieval-Augmented Generation) capabilities with real-time booking systems to provide practical assistance and emotional support.",
+      features: [
+        "24/7 multilingual social support",
+        "AWS Bedrock integration",
+        "Microservice architecture with Lambda and DynamoDB",
+        "RAG pipeline for contextual responses",
+        "Telegram and WhatsApp frontend integration",
+        "EasyWeek API booking integration",
+      ],
+      tech: [
+        "AWS",
+        "Lambda",
+        "DynamoDB",
+        "RAG",
+        "Telegram",
+        "WhatsApp",
+        "Bedrock",
+      ],
+      company: "Bevar Ukraine",
+      year: "2025",
+      coverImage: coverBevar,
+      coverImageAlt: "Bevar Ukraine AI assistant for refugees",
+      impact:
+        "Provided critical support services to refugee communities with scalable cloud infrastructure",
+    },
+
+    // Novo
     {
       id: "table-extractor",
       title: "Deep Learning-based Table Extraction from Pharmaceutical PDFs",
@@ -64,10 +127,36 @@ function App() {
       year: "2025",
       github: "https://github.com/rifolio/TableExtractorDETR",
       coverImage: coverDeepLearning,
-      coverImageAlt: "Deep learning table extraction project",
+      coverImageAlt: "Novo Nordisk table extraction project",
       impact:
         "Reduced manual processing time and improved data consistency for pharmaceutical document analysis",
     },
+
+    // Focolax
+    {
+      id: "api-integration",
+      title: "API Integration Platform",
+      shortDescription:
+        "Automated CRM data integration using BERT AI and intelligent schema matching",
+      fullDescription:
+        "An intelligent API integration platform designed to automate CRM data synchronization across multiple platforms. The system uses BERT AI for semantic schema matching and REGEX for pattern recognition, enabling seamless data flow between different business systems. The project included the development of a conversational chatbot interface for enhanced user interaction and system management.",
+      features: [
+        "Automated schema matching with BERT AI",
+        "REGEX-based pattern recognition",
+        "REST API integrations with HubSpot and ClickUp",
+        "Telegram chatbot interface",
+        "Real-time data synchronization",
+        "Intelligent error handling and logging",
+      ],
+      tech: ["Python", "BERT", "REST API", "Telegram Bot", "NLP"],
+      company: "Focalx",
+      year: "2024",
+      coverImage: coverFocolax,
+      coverImageAlt: "Focalx API Integration Platform",
+      impact: "Streamlined CRM workflows and reduced manual data entry by 80%",
+    },
+
+    // Rest
     {
       id: "podcast-prediction",
       title: "Podcast Watch Time Prediction",
@@ -93,8 +182,9 @@ function App() {
       ],
       year: "2025",
       github: "https://github.com/rifolio/PodcastWatchTimePrediction",
-      coverImage: "/api/placeholder/600/300",
-      coverImageAlt: "Podcast prediction project",
+      coverImage: coverPodcast,
+      coverImageAlt: "Podcast watch time prediction",
+      company: "Roskilde University",
       impact:
         "Delivered insights for content planning and user engagement optimization",
     },
@@ -124,84 +214,9 @@ function App() {
       coverImage: coverFruitFlies,
       coverImageAlt: "Statistical analysis of fruit fly fecundity",
       grade: "12 (Highest grade)",
+      company: "Roskilde University",
       impact:
         "Contributed to understanding of genetic selection effects on reproductive fitness",
-    },
-    {
-      id: "api-integration",
-      title: "API Integration Platform",
-      shortDescription:
-        "Automated CRM data integration using BERT AI and intelligent schema matching",
-      fullDescription:
-        "An intelligent API integration platform designed to automate CRM data synchronization across multiple platforms. The system uses BERT AI for semantic schema matching and REGEX for pattern recognition, enabling seamless data flow between different business systems. The project included the development of a conversational chatbot interface for enhanced user interaction and system management.",
-      features: [
-        "Automated schema matching with BERT AI",
-        "REGEX-based pattern recognition",
-        "REST API integrations with HubSpot and ClickUp",
-        "Telegram chatbot interface",
-        "Real-time data synchronization",
-        "Intelligent error handling and logging",
-      ],
-      tech: ["Python", "BERT", "REST API", "Telegram Bot", "NLP"],
-      company: "Focalx",
-      year: "2024",
-      coverImage: "/api/placeholder/600/300",
-      coverImageAlt: "API integration platform",
-      impact: "Streamlined CRM workflows and reduced manual data entry by 80%",
-    },
-    {
-      id: "ai-chatbot",
-      title: "AI Customer Support Chatbot",
-      shortDescription:
-        "LLM-powered chatbot achieving 86% accuracy and handling 5,500+ monthly inquiries",
-      fullDescription:
-        "A sophisticated AI-powered customer support system built using large language models to handle customer inquiries automatically. The chatbot demonstrates advanced natural language understanding and multi-turn dialogue capabilities, significantly improving response times and customer satisfaction. The system processes thousands of inquiries monthly while maintaining high accuracy rates.",
-      features: [
-        "86% intent recognition accuracy",
-        "70% reduction in average response time",
-        "Handles 51% of all inbound inquiries (~5,500/month)",
-        "Multi-turn dialogue capabilities",
-        "Real-time response generation",
-        "Comprehensive analytics and monitoring",
-      ],
-      tech: ["Python", "LLMs", "FastAPI", "AWS", "NLP"],
-      company: "Tryp.com",
-      year: "2024",
-      coverImage: "/api/placeholder/600/300",
-      coverImageAlt: "AI customer support chatbot",
-      impact:
-        "Transformed customer support operations with significant cost savings and improved user experience",
-    },
-    {
-      id: "refugee-assistant",
-      title: "AI Assistant for Refugees",
-      shortDescription:
-        "Multilingual AI chatbot on AWS providing 24/7 social support and booking integration",
-      fullDescription:
-        "A comprehensive AI assistant system designed to provide multilingual social support for refugees. Built on AWS Bedrock with a microservice architecture, the system offers 24/7 availability across multiple communication channels. The platform integrates advanced RAG (Retrieval-Augmented Generation) capabilities with real-time booking systems to provide practical assistance and emotional support.",
-      features: [
-        "24/7 multilingual social support",
-        "AWS Bedrock integration",
-        "Microservice architecture with Lambda and DynamoDB",
-        "RAG pipeline for contextual responses",
-        "Telegram and WhatsApp frontend integration",
-        "EasyWeek API booking integration",
-      ],
-      tech: [
-        "AWS",
-        "Lambda",
-        "DynamoDB",
-        "RAG",
-        "Telegram",
-        "WhatsApp",
-        "Bedrock",
-      ],
-      company: "Bevar Ukraine",
-      year: "2025",
-      coverImage: "/api/placeholder/600/300",
-      coverImageAlt: "AI assistant for refugees",
-      impact:
-        "Provided critical support services to refugee communities with scalable cloud infrastructure",
     },
   ];
 
@@ -462,7 +477,7 @@ function App() {
             {projects.map((project, index) => (
               <div
                 key={index}
-                className="bg-card border border-border rounded-lg overflow-hidden hover:border-primary/50 transition-all duration-300 cursor-pointer group"
+                className="bg-card border border-border rounded-lg overflow-hidden hover:border-primary/50 transition-all duration-300 cursor-pointer group flex flex-col"
                 onClick={() => setSelectedProject(project)}
               >
                 <div className="h-48 bg-muted flex items-center justify-center overflow-hidden">
@@ -482,7 +497,7 @@ function App() {
                     </div>
                   )}
                 </div>
-                <div className="p-6">
+                <div className="p-6 flex flex-col h-full">
                   <div className="flex justify-between items-start mb-3">
                     <h3 className="text-lg font-semibold leading-tight group-hover:text-primary transition-colors">
                       {project.title}
@@ -507,7 +522,7 @@ function App() {
                       </span>
                     )}
                   </div>
-                  <div className="flex justify-between items-center text-xs text-muted-foreground">
+                  <div className="flex justify-between items-center text-xs text-muted-foreground mt-auto">
                     {project.company && <span>{project.company}</span>}
                     <span>{project.year}</span>
                   </div>
