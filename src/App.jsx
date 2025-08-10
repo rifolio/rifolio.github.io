@@ -12,6 +12,8 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button.jsx";
 import profilePicture from "./assets/photo.jpg";
+import coverDeepLearning from "./assets/DeepLearningBSc.png";
+import coverFruitFlies from "./assets/FruitFliesProject.png";
 import "./App.css";
 
 function App() {
@@ -61,7 +63,8 @@ function App() {
       company: "Novo Nordisk",
       year: "2025",
       github: "https://github.com/rifolio/TableExtractorDETR",
-      coverImage: "/api/placeholder/600/300",
+      coverImage: coverDeepLearning,
+      coverImageAlt: "Deep learning table extraction project",
       impact:
         "Reduced manual processing time and improved data consistency for pharmaceutical document analysis",
     },
@@ -91,6 +94,7 @@ function App() {
       year: "2025",
       github: "https://github.com/rifolio/PodcastWatchTimePrediction",
       coverImage: "/api/placeholder/600/300",
+      coverImageAlt: "Podcast prediction project",
       impact:
         "Delivered insights for content planning and user engagement optimization",
     },
@@ -117,7 +121,8 @@ function App() {
       ],
       year: "2024",
       github: "https://github.com/rifolio/StatisticalModels",
-      coverImage: "/api/placeholder/600/300",
+      coverImage: coverFruitFlies,
+      coverImageAlt: "Statistical analysis of fruit fly fecundity",
       grade: "12 (Highest grade)",
       impact:
         "Contributed to understanding of genetic selection effects on reproductive fitness",
@@ -141,6 +146,7 @@ function App() {
       company: "Focalx",
       year: "2024",
       coverImage: "/api/placeholder/600/300",
+      coverImageAlt: "API integration platform",
       impact: "Streamlined CRM workflows and reduced manual data entry by 80%",
     },
     {
@@ -162,6 +168,7 @@ function App() {
       company: "Tryp.com",
       year: "2024",
       coverImage: "/api/placeholder/600/300",
+      coverImageAlt: "AI customer support chatbot",
       impact:
         "Transformed customer support operations with significant cost savings and improved user experience",
     },
@@ -192,6 +199,7 @@ function App() {
       company: "Bevar Ukraine",
       year: "2025",
       coverImage: "/api/placeholder/600/300",
+      coverImageAlt: "AI assistant for refugees",
       impact:
         "Provided critical support services to refugee communities with scalable cloud infrastructure",
     },
@@ -246,10 +254,21 @@ function App() {
 
           <div className="p-4 sm:p-6">
             <div className="mb-6">
-              <div className="w-full h-40 sm:h-64 bg-muted rounded-lg mb-6 flex items-center justify-center">
-                <span className="text-muted-foreground">
-                  Project Cover Image
-                </span>
+              <div className="w-full h-40 sm:h-64 bg-muted rounded-lg mb-6 flex items-center justify-center overflow-hidden">
+                {project.coverImage &&
+                !String(project.coverImage).startsWith("/api/placeholder") ? (
+                  <img
+                    src={project.coverImage}
+                    alt={project.coverImageAlt || project.title}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <div className="px-4 text-center">
+                    <span className="text-base sm:text-lg font-medium text-muted-foreground line-clamp-2">
+                      {project.title}
+                    </span>
+                  </div>
+                )}
               </div>
 
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 mb-4">
@@ -345,15 +364,15 @@ function App() {
   const cvHref = import.meta.env.BASE_URL + "CV.pdf";
 
   return (
-    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+    <div className="min-h-screen metallic-bg text-foreground overflow-x-hidden">
       {/* Hero Section */}
-      <section className="min-h-screen flex items-center justify-center px-4 sm:px-6 relative">
+      <section className="section min-h-screen flex items-center justify-center px-4 sm:px-6 relative pt-6 sm:pt-0 safe-pt">
         <div className="max-w-4xl mx-auto text-center">
           <div className="mb-8">
             <img
               src={profilePicture}
               alt="Vladyslav Horbatenko"
-              className="w-32 h-32 rounded-full mx-auto mb-6 object-cover border-2 border-border"
+              className="w-32 h-32 rounded-full mx-auto mb-6 object-cover border-2 border-border mt-4 sm:mt-0"
             />
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
               Vladyslav Horbatenko
@@ -434,7 +453,7 @@ function App() {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="py-20 px-4 sm:px-6">
+      <section id="projects" className="section py-20 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
             Featured Projects
@@ -446,8 +465,22 @@ function App() {
                 className="bg-card border border-border rounded-lg overflow-hidden hover:border-primary/50 transition-all duration-300 cursor-pointer group"
                 onClick={() => setSelectedProject(project)}
               >
-                <div className="h-48 bg-muted flex items-center justify-center">
-                  <span className="text-muted-foreground">Project Cover</span>
+                <div className="h-48 bg-muted flex items-center justify-center overflow-hidden">
+                  {project.coverImage &&
+                  !String(project.coverImage).startsWith("/api/placeholder") ? (
+                    <img
+                      src={project.coverImage}
+                      alt={project.coverImageAlt || project.title}
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div className="px-4 text-center">
+                      <span className="text-sm sm:text-base md:text-lg font-medium text-muted-foreground line-clamp-2">
+                        {project.title}
+                      </span>
+                    </div>
+                  )}
                 </div>
                 <div className="p-6">
                   <div className="flex justify-between items-start mb-3">
@@ -486,7 +519,7 @@ function App() {
       </section>
 
       {/* Skills Section */}
-      <section id="skills" className="py-20 px-4 sm:px-6 bg-muted/30">
+      <section id="skills" className="section py-20 px-4 sm:px-6 bg-muted/30">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
             Skills & Technologies
@@ -517,7 +550,7 @@ function App() {
       </section>
 
       {/* Education Section */}
-      <section id="education" className="py-20 px-4 sm:px-6">
+      <section id="education" className="section py-20 px-4 sm:px-6">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
             Education
@@ -562,7 +595,7 @@ function App() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-20 px-4 sm:px-6 bg-muted/30">
+      <section id="contact" className="section py-20 px-4 sm:px-6 bg-muted/30">
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-8">Get In Touch</h2>
           <p className="text-lg text-muted-foreground mb-8">

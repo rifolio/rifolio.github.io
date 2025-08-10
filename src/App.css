@@ -127,6 +127,9 @@
     padding-left: max(1rem, env(safe-area-inset-left));
     padding-right: max(1rem, env(safe-area-inset-right));
   }
+  .safe-pt {
+    padding-top: max(1rem, env(safe-area-inset-top));
+  }
 }
 
 img,
@@ -147,4 +150,60 @@ h4,
 h5,
 h6 {
   overflow-wrap: anywhere;
+}
+
+/* Metallic gray background and seamless section separators */
+.metallic-bg {
+  background: radial-gradient(
+      1000px 500px at 50% -10%,
+      rgba(255, 255, 255, 0.08),
+      rgba(255, 255, 255, 0) 60%
+    ),
+    radial-gradient(
+      600px 400px at 20% 15%,
+      rgba(0, 180, 255, 0.16),
+      rgba(0, 180, 255, 0) 55%
+    ),
+    radial-gradient(
+      700px 500px at 85% 80%,
+      rgba(0, 140, 255, 0.1),
+      rgba(0, 140, 255, 0) 60%
+    ),
+    linear-gradient(180deg, #d9d9d9, #c4c4c4 35%, #adadad 65%, #9e9e9e);
+  background-attachment: fixed;
+}
+
+.dark .metallic-bg {
+  background: radial-gradient(
+      1200px 600px at 50% -10%,
+      rgba(255, 255, 255, 0.03),
+      rgba(255, 255, 255, 0) 60%
+    ),
+    radial-gradient(
+      800px 500px at 18% 12%,
+      rgba(0, 200, 255, 0.22),
+      rgba(0, 200, 255, 0) 55%
+    ),
+    radial-gradient(
+      900px 600px at 82% 82%,
+      rgba(0, 140, 255, 0.18),
+      rgba(0, 140, 255, 0) 60%
+    ),
+    linear-gradient(180deg, #101014, #0b0b0f 35%, #09090c 65%, #060608);
+  background-attachment: fixed;
+}
+
+.section {
+  position: relative;
+}
+
+.section + .section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+  opacity: 0.6;
 }
