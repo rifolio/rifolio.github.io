@@ -1,19 +1,29 @@
-import * as React from "react"
+import * as React from "react";
 
-const MOBILE_BREAKPOINT = 768
+const MOBILE_BREAKPOINT = 768;
 
 export function useIsMobile() {
-  const [isMobile, setIsMobile] = React.useState(undefined)
+  const [isMobile, setIsMobile] = React.useState(false);
 
   React.useEffect(() => {
-    const mql = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`)
-    const onChange = () => {
-      setIsMobile(window.innerWidth < MOBILE_BREAKPOINT)
+    const mediaQueryList = window.matchMedia(
+      `(max-width: ${MOBILE_BREAKPOINT - 1}px)`
+    );
+    const update = (e) => {
+      setIsMobile(e?.matches ?? window.innerWidth < MOBILE_BREAKPOINT);
+    };
+    // Initialize
+    update(mediaQueryList);
+    // Subscribe
+    if (mediaQueryList.addEventListener) {
+      mediaQueryList.addEventListener("change", update);
+      return () => mediaQueryList.removeEventListener("change", update);
+    } else {
+      // Safari fallback
+      mediaQueryList.addListener(update);
+      return () => mediaQueryList.removeListener(update);
     }
-    mql.addEventListener("change", onChange)
-    setIsMobile(window.innerWidth < MOBILE_BREAKPOINT)
-    return () => mql.removeEventListener("change", onChange);
-  }, [])
+  }, []);
 
-  return !!isMobile
+  return !!isMobile;
 }

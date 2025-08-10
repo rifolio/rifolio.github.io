@@ -232,9 +232,9 @@ function App() {
     if (!project) return null;
 
     return (
-      <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4">
         <div className="bg-card border border-border rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-          <div className="sticky top-0 bg-card border-b border-border p-6 flex items-center justify-between">
+          <div className="sticky top-0 bg-card border-b border-border p-4 sm:p-6 flex items-center justify-between">
             <Button variant="ghost" size="sm" onClick={onClose}>
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Projects
@@ -244,18 +244,20 @@ function App() {
             </Button>
           </div>
 
-          <div className="p-6">
+          <div className="p-4 sm:p-6">
             <div className="mb-6">
-              <div className="w-full h-64 bg-muted rounded-lg mb-6 flex items-center justify-center">
+              <div className="w-full h-40 sm:h-64 bg-muted rounded-lg mb-6 flex items-center justify-center">
                 <span className="text-muted-foreground">
                   Project Cover Image
                 </span>
               </div>
 
-              <div className="flex items-start justify-between mb-4">
-                <div className="flex-1">
-                  <h2 className="text-2xl font-bold mb-2">{project.title}</h2>
-                  <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 mb-4">
+                <div className="flex-1 min-w-0">
+                  <h2 className="text-xl sm:text-2xl font-bold mb-2 break-words">
+                    {project.title}
+                  </h2>
+                  <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-sm text-muted-foreground mb-2 sm:mb-4">
                     {project.company && <span>{project.company}</span>}
                     <span>{project.year}</span>
                     {project.grade && (
@@ -265,9 +267,14 @@ function App() {
                     )}
                   </div>
                 </div>
-                <div className="flex gap-2">
+                <div className="flex gap-2 w-full sm:w-auto">
                   {project.github && (
-                    <Button variant="outline" size="sm" asChild>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      asChild
+                      className="w-full sm:w-auto"
+                    >
                       <a
                         href={project.github}
                         target="_blank"
@@ -338,9 +345,9 @@ function App() {
   const cvHref = import.meta.env.BASE_URL + "CV.pdf";
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       {/* Hero Section */}
-      <section className="min-h-screen flex items-center justify-center px-6 relative">
+      <section className="min-h-screen flex items-center justify-center px-4 sm:px-6 relative">
         <div className="max-w-4xl mx-auto text-center">
           <div className="mb-8">
             <img
@@ -348,10 +355,10 @@ function App() {
               alt="Vladyslav Horbatenko"
               className="w-32 h-32 rounded-full mx-auto mb-6 object-cover border-2 border-border"
             />
-            <h1 className="text-5xl md:text-7xl font-bold mb-4 bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
               Vladyslav Horbatenko
             </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground mb-2">
+            <p className="text-lg md:text-2xl text-muted-foreground mb-2">
               AI Engineer & Computer Science Student
             </p>
             <div className="flex items-center justify-center gap-2 text-muted-foreground mb-8">
@@ -367,8 +374,13 @@ function App() {
             technologies.
           </p>
 
-          <div className="flex justify-center gap-4 mb-12">
-            <Button variant="outline" size="lg" asChild>
+          <div className="flex flex-col sm:flex-row flex-wrap items-stretch justify-center gap-3 sm:gap-4 mb-12 max-w-sm sm:max-w-none mx-auto w-full">
+            <Button
+              variant="outline"
+              size="lg"
+              asChild
+              className="w-full sm:w-auto"
+            >
               <a
                 href="https://github.com/rifolio"
                 target="_blank"
@@ -378,7 +390,12 @@ function App() {
                 GitHub
               </a>
             </Button>
-            <Button variant="outline" size="lg" asChild>
+            <Button
+              variant="outline"
+              size="lg"
+              asChild
+              className="w-full sm:w-auto"
+            >
               <a
                 href="https://www.linkedin.com/in/vladyslav-horbatenko/"
                 target="_blank"
@@ -388,13 +405,18 @@ function App() {
                 LinkedIn
               </a>
             </Button>
-            <Button variant="outline" size="lg" asChild>
+            <Button
+              variant="outline"
+              size="lg"
+              asChild
+              className="w-full sm:w-auto"
+            >
               <a href="mailto:vladyslav.horbatenko.work@gmail.com">
                 <Mail className="w-5 h-5 mr-2" />
                 Contact
               </a>
             </Button>
-            <Button size="lg" asChild>
+            <Button size="lg" asChild className="w-full sm:w-auto">
               <a href={cvHref} target="_blank" rel="noopener noreferrer">
                 <FileText className="w-5 h-5 mr-2" />
                 CV
@@ -412,12 +434,12 @@ function App() {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="py-20 px-6">
+      <section id="projects" className="py-20 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
             Featured Projects
           </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {projects.map((project, index) => (
               <div
                 key={index}
@@ -464,12 +486,12 @@ function App() {
       </section>
 
       {/* Skills Section */}
-      <section id="skills" className="py-20 px-6 bg-muted/30">
+      <section id="skills" className="py-20 px-4 sm:px-6 bg-muted/30">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
             Skills & Technologies
           </h2>
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
             {Object.entries(skills).map(([category, skillList], index) => (
               <div
                 key={index}
@@ -495,7 +517,7 @@ function App() {
       </section>
 
       {/* Education Section */}
-      <section id="education" className="py-20 px-6">
+      <section id="education" className="py-20 px-4 sm:px-6">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
             Education
@@ -540,21 +562,26 @@ function App() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-20 px-6 bg-muted/30">
+      <section id="contact" className="py-20 px-4 sm:px-6 bg-muted/30">
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-8">Get In Touch</h2>
           <p className="text-lg text-muted-foreground mb-8">
             I'm always interested in discussing new opportunities,
             collaborations, or just chatting about AI and technology.
           </p>
-          <div className="flex justify-center gap-4">
-            <Button size="lg" asChild>
+          <div className="flex flex-col sm:flex-row items-stretch justify-center gap-3 sm:gap-4 max-w-sm sm:max-w-none mx-auto">
+            <Button size="lg" asChild className="w-full sm:w-auto">
               <a href="mailto:vladyslav.horbatenko.work@gmail.com">
                 <Mail className="w-5 h-5 mr-2" />
                 Send Email
               </a>
             </Button>
-            <Button variant="outline" size="lg" asChild>
+            <Button
+              variant="outline"
+              size="lg"
+              asChild
+              className="w-full sm:w-auto"
+            >
               <a
                 href="https://www.linkedin.com/in/vladyslav-horbatenko/"
                 target="_blank"
@@ -569,7 +596,7 @@ function App() {
       </section>
 
       {/* Footer */}
-      <footer className="py-8 px-6 border-t border-border">
+      <footer className="py-8 px-4 sm:px-6 border-t border-border">
         <div className="max-w-4xl mx-auto text-center text-muted-foreground">
           <p>&copy; 2025 Vladyslav Horbatenko.</p>
         </div>
