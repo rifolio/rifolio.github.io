@@ -20,6 +20,62 @@ import coverSandra from "./assets/Sandra.png";
 import coverPodcast from "./assets/PodcastListenTime.png";
 import "./App.css";
 
+function Typewriter({
+  phrases = [],
+  typingDelayMs = 90,
+  deletingDelayMs = 55,
+  holdOnCompleteMs = 2200,
+}) {
+  const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
+  const [visibleText, setVisibleText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    if (phrases.length === 0) return;
+
+    const fullText = phrases[currentPhraseIndex] || "";
+    const isTyping = !isDeleting;
+
+    let timeoutId;
+
+    if (isTyping) {
+      if (visibleText.length < fullText.length) {
+        timeoutId = setTimeout(() => {
+          setVisibleText(fullText.slice(0, visibleText.length + 1));
+        }, typingDelayMs);
+      } else {
+        timeoutId = setTimeout(() => setIsDeleting(true), holdOnCompleteMs);
+      }
+    } else {
+      if (visibleText.length > 0) {
+        timeoutId = setTimeout(() => {
+          setVisibleText(fullText.slice(0, visibleText.length - 1));
+        }, deletingDelayMs);
+      } else {
+        setIsDeleting(false);
+        setCurrentPhraseIndex((prev) => (prev + 1) % phrases.length);
+      }
+    }
+
+    return () => clearTimeout(timeoutId);
+  }, [
+    phrases,
+    currentPhraseIndex,
+    visibleText,
+    isDeleting,
+    typingDelayMs,
+    deletingDelayMs,
+    holdOnCompleteMs,
+  ]);
+
+  return (
+    <span>
+      <span>{visibleText}</span>
+      <span className="typed-cursor typed-cursor--blink">|</span>
+    </span>
+  );
+}
+
 function App() {
   const [isDark, setIsDark] = useState(true);
   const [selectedProject, setSelectedProject] = useState(null);
@@ -408,9 +464,18 @@ function App() {
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 metallic-name">
               Vladyslav Horbatenko
             </h1>
-            <p className="text-lg md:text-2xl text-muted-foreground mb-2">
-              AI Engineer & Computer Science Student
-            </p>
+            <div className="text-lg md:text-2xl text-muted-foreground mb-2 h-7 md:h-8">
+              <Typewriter
+                phrases={[
+                  "AI Engineer",
+                  "Data Science",
+                  "Computer Science",
+                  "AWS Infrastructure",
+                  "LLM Applications",
+                  "Business Automation",
+                ]}
+              />
+            </div>
             <div className="flex items-center justify-center gap-2 text-muted-foreground mb-8">
               <MapPin className="w-4 h-4" />
               <span>Copenhagen, Denmark</span>
