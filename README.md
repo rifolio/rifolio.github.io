@@ -1,1 +1,0 @@
-# vladyslav-horbatenko.github.io
