@@ -7,9 +7,22 @@ dist/
 # IDEs and editors
 .vscode/
 .idea/
+.history/
+.fleet/
+.cursor/
 
 # OS
 .DS_Store
+**/.DS_Store
+Thumbs.db
+ehthumbs.db
+Icon?
+.Spotlight-V100
+.Trashes
+.fseventsd
+.AppleDouble
+.LSOverride
+._*
 
 # Env files
 .env
@@ -26,4 +39,22 @@ yarn-debug.log*
 .cache/
 .tmp/
 *.local
+*.swp
+*.swo
+*.orig
+*.tmp
+~$*
+
+# Coverage / test artifacts
+coverage/
+.nyc_output/
+
+# Misc
+*.pid
+*.seed
+*.torrent
+*.tgz
+*.bak
+*.backup
+*.old
 
