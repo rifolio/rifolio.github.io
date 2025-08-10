@@ -558,7 +558,7 @@ function App() {
             {projects.map((project, index) => (
               <div
                 key={index}
-                className="bg-card border border-border rounded-lg overflow-hidden hover:border-primary/50 transition-all duration-300 cursor-pointer group flex flex-col"
+                className="bg-card border border-border rounded-lg overflow-hidden hover:border-primary/50 transition-all duration-300 cursor-pointer group flex flex-col card-neon"
                 onClick={() => setSelectedProject(project)}
               >
                 <div className="h-48 bg-muted flex items-center justify-center overflow-hidden">
