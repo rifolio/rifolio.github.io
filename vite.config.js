@@ -8,7 +8,7 @@ export default defineConfig(({ mode }) => {
   const isCI = process.env.CI === "true";
   const repoName = process.env.GITHUB_REPOSITORY?.split("/")[1];
   const isUserOrgPages = repoName?.endsWith(".github.io");
-  const ciBase = isUserOrgPages ? "/" : (repoName ? `/${repoName}/` : "/");
+  const ciBase = isUserOrgPages ? "/" : repoName ? `/${repoName}/` : "/";
   return {
     plugins: [react(), tailwindcss()],
     base: isCI ? ciBase : "/",
