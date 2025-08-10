@@ -279,7 +279,7 @@ function App() {
                   <img
                     src={project.coverImage}
                     alt={project.coverImageAlt || project.title}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain"
                   />
                 ) : (
                   <div className="px-4 text-center">
@@ -502,7 +502,7 @@ function App() {
                     <img
                       src={project.coverImage}
                       alt={project.coverImageAlt || project.title}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-contain"
                       loading="lazy"
                     />
                   ) : (
@@ -518,7 +518,34 @@ function App() {
                     <h3 className="text-lg font-semibold leading-tight group-hover:text-primary transition-colors">
                       {project.title}
                     </h3>
-                    <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                    {project.github ||
+                    project.projectUrl ||
+                    project.companyUrl ? (
+                      <a
+                        href={
+                          project.github ||
+                          project.projectUrl ||
+                          project.companyUrl
+                        }
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        aria-label="Open project link"
+                        className="text-muted-foreground hover:text-primary transition-colors shrink-0"
+                      >
+                        <span className="inline-flex items-center justify-center w-4 h-4">
+                          <ExternalLink className="w-4 h-4" strokeWidth={2} />
+                        </span>
+                      </a>
+                    ) : (
+                      <span className="inline-flex items-center justify-center w-4 h-4 shrink-0 text-muted-foreground/60">
+                        <ExternalLink
+                          className="w-4 h-4"
+                          strokeWidth={2}
+                          aria-hidden="true"
+                        />
+                      </span>
+                    )}
                   </div>
                   <p className="text-muted-foreground mb-4 text-sm leading-relaxed line-clamp-3">
                     {project.shortDescription}

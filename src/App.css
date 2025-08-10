@@ -208,6 +208,14 @@ h6 {
   opacity: 0.6;
 }
 
+/* Consistent icon sizing utility for card link icons */
+.icon-16 {
+  width: 1rem;
+  height: 1rem;
+  display: inline-block;
+  vertical-align: middle;
+}
+
 /* Metallic gradient text for the hero name */
 @keyframes metallicShine {
   0% {
