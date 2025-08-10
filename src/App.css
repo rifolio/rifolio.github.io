@@ -207,3 +207,56 @@ h6 {
   background: linear-gradient(90deg, transparent, var(--border), transparent);
   opacity: 0.6;
 }
+
+/* Metallic gradient text for the hero name */
+@keyframes metallicShine {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+.metallic-name {
+  background-image: linear-gradient(
+    110deg,
+    #7d7d7d 0%,
+    #cfcfcf 10%,
+    #9a9a9a 20%,
+    #ffffff 35%,
+    #9d9d9d 50%,
+    #e6e6e6 65%,
+    #8f8f8f 80%,
+    #f8f8f8 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 0.5px rgba(0, 0, 0, 0.06);
+  text-shadow: 0 0.02em 0.08em rgba(0, 0, 0, 0.15);
+  animation: metallicShine 7s linear infinite;
+}
+
+.dark .metallic-name {
+  background-image: linear-gradient(
+    110deg,
+    #9a9a9a 0%,
+    #e5e5e5 12%,
+    #bdbdbd 24%,
+    #ffffff 38%,
+    #b5b5b5 52%,
+    #f0f0f0 68%,
+    #b0b0b0 84%,
+    #ffffff 100%
+  );
+  -webkit-text-stroke: 0.5px rgba(255, 255, 255, 0.06);
+  text-shadow: 0 0.02em 0.08em rgba(255, 255, 255, 0.06);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .metallic-name {
+    animation: none;
+  }
+}

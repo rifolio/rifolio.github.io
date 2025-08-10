@@ -58,6 +58,7 @@ function App() {
       ],
       tech: ["Python", "LLMs", "FastAPI", "AWS", "NLP"],
       company: "Tryp.com",
+      companyUrl: "https://www.tryp.com",
       year: "2024-2025",
       coverImage: coverSandra,
       coverImageAlt: "Tryp.com AI customer support chatbot (Sandra)",
@@ -91,6 +92,7 @@ function App() {
         "Bedrock",
       ],
       company: "Bevar Ukraine",
+      companyUrl: "https://www.bevarukraine.dk/",
       year: "2025",
       coverImage: coverBevar,
       coverImageAlt: "Bevar Ukraine AI assistant for refugees",
@@ -185,6 +187,7 @@ function App() {
       coverImage: coverPodcast,
       coverImageAlt: "Podcast watch time prediction",
       company: "Roskilde University",
+      companyUrl: "https://ruc.dk",
       impact:
         "Delivered insights for content planning and user engagement optimization",
     },
@@ -215,6 +218,7 @@ function App() {
       coverImageAlt: "Statistical analysis of fruit fly fecundity",
       grade: "12 (Highest grade)",
       company: "Roskilde University",
+      companyUrl: "https://ruc.dk",
       impact:
         "Contributed to understanding of genetic selection effects on reproductive fitness",
     },
@@ -292,7 +296,19 @@ function App() {
                     {project.title}
                   </h2>
                   <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-sm text-muted-foreground mb-2 sm:mb-4">
-                    {project.company && <span>{project.company}</span>}
+                    {project.company &&
+                      (project.companyUrl ? (
+                        <a
+                          href={project.companyUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-primary hover:underline"
+                        >
+                          {project.company}
+                        </a>
+                      ) : (
+                        <span>{project.company}</span>
+                      ))}
                     <span>{project.year}</span>
                     {project.grade && (
                       <span className="text-primary font-medium">
@@ -389,7 +405,7 @@ function App() {
               alt="Vladyslav Horbatenko"
               className="w-32 h-32 rounded-full mx-auto mb-6 object-cover border-2 border-border mt-4 sm:mt-0"
             />
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 metallic-name">
               Vladyslav Horbatenko
             </h1>
             <p className="text-lg md:text-2xl text-muted-foreground mb-2">
@@ -523,7 +539,20 @@ function App() {
                     )}
                   </div>
                   <div className="flex justify-between items-center text-xs text-muted-foreground mt-auto">
-                    {project.company && <span>{project.company}</span>}
+                    {project.company &&
+                      (project.companyUrl ? (
+                        <a
+                          href={project.companyUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-primary hover:underline"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          {project.company}
+                        </a>
+                      ) : (
+                        <span>{project.company}</span>
+                      ))}
                     <span>{project.year}</span>
                   </div>
                 </div>
