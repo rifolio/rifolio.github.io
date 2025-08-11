@@ -11,6 +11,7 @@ import {
   ArrowLeft,
 } from "lucide-react";
 import { Button } from "@/components/ui/button.jsx";
+import AssistantChat from "@/components/AssistantChat.jsx";
 import profilePicture from "./assets/photo.jpg";
 import coverDeepLearning from "./assets/DeepLearningBSc.png";
 import coverFruitFlies from "./assets/FruitFliesProject.png";
@@ -809,6 +810,7 @@ function App() {
         project={selectedProject}
         onClose={() => setSelectedProject(null)}
       />
+      <AssistantChat defaultOpen />
     </div>
   );
 }
