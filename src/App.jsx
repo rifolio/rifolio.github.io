@@ -329,7 +329,7 @@ function App() {
 
           <div className="p-4 sm:p-6">
             <div className="mb-6">
-              <div className="w-full h-40 sm:h-64 bg-muted rounded-lg mb-6 flex items-center justify-center overflow-hidden">
+              <div className="w-full aspect-[3/2] bg-muted rounded-lg mb-6 flex items-center justify-center overflow-hidden">
                 {project.coverImage &&
                 !String(project.coverImage).startsWith("/api/placeholder") ? (
                   <img
@@ -554,20 +554,20 @@ function App() {
           <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
             Featured Projects
           </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 auto-rows-[1fr] items-stretch">
             {projects.map((project, index) => (
               <div
                 key={index}
-                className="bg-card border border-border rounded-lg overflow-hidden hover:border-primary/50 transition-all duration-300 cursor-pointer group flex flex-col card-neon"
+                className="bg-card border border-border rounded-lg overflow-hidden hover:border-primary/50 transition-all duration-300 cursor-pointer group flex flex-col card-neon h-full"
                 onClick={() => setSelectedProject(project)}
               >
-                <div className="h-48 bg-muted flex items-center justify-center overflow-hidden">
+                <div className="aspect-[3/2] w-full bg-muted flex items-center justify-center overflow-hidden">
                   {project.coverImage &&
                   !String(project.coverImage).startsWith("/api/placeholder") ? (
                     <img
                       src={project.coverImage}
                       alt={project.coverImageAlt || project.title}
-                      className="w-full h-full object-contain"
+                      className="w-full h-full object-cover"
                       loading="lazy"
                     />
                   ) : (
@@ -580,7 +580,7 @@ function App() {
                 </div>
                 <div className="p-6 flex flex-col h-full">
                   <div className="flex justify-between items-start mb-3">
-                    <h3 className="text-lg font-semibold leading-tight group-hover:text-primary transition-colors">
+                    <h3 className="text-lg font-semibold leading-tight group-hover:text-primary transition-colors line-clamp-2">
                       {project.title}
                     </h3>
                     {project.github ||
