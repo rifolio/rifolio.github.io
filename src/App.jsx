@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   Github,
   Linkedin,
@@ -79,6 +79,7 @@ function Typewriter({
 function App() {
   const [isDark, setIsDark] = useState(true);
   const [selectedProject, setSelectedProject] = useState(null);
+  const scrollYRef = useRef(0);
 
   useEffect(() => {
     if (isDark) {
@@ -87,6 +88,38 @@ function App() {
       document.documentElement.classList.remove("dark");
     }
   }, [isDark]);
+
+  // Lock background scroll when a project card (modal) is open
+  useEffect(() => {
+    const body = document.body;
+    const root = document.documentElement;
+    if (selectedProject) {
+      scrollYRef.current = window.scrollY;
+      // Prevent background scroll and preserve current position
+      body.style.position = "fixed";
+      body.style.top = `-${scrollYRef.current}px`;
+      body.style.left = "0";
+      body.style.right = "0";
+      body.style.width = "100%";
+      body.style.overflowY = "scroll";
+      // Avoid smooth scroll interference while locked
+      root.style.scrollBehavior = "auto";
+    } else {
+      // Restore scroll position and styles
+      const top = body.style.top;
+      body.style.position = "";
+      body.style.top = "";
+      body.style.left = "";
+      body.style.right = "";
+      body.style.width = "";
+      body.style.overflowY = "";
+      root.style.scrollBehavior = "";
+      if (top) {
+        const y = Math.abs(parseInt(top, 10)) || 0;
+        window.scrollTo(0, y);
+      }
+    }
+  }, [selectedProject]);
 
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
