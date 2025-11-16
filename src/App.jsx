@@ -134,16 +134,17 @@ function App() {
       id: "ai-chatbot",
       title: "AI Customer Support Chatbot",
       shortDescription:
-        "LLM-powered chatbot achieving 86% accuracy and handling 5,500+ monthly inquiries",
+        "LLM-powered chatbot achieving 86% accuracy and handling 10,500+ monthly inquiries",
       fullDescription:
         "A sophisticated AI-powered customer support system built using large language models to handle customer inquiries automatically. The chatbot demonstrates advanced natural language understanding and multi-turn dialogue capabilities, significantly improving response times and customer satisfaction. The system processes thousands of inquiries monthly while maintaining high accuracy rates.",
       features: [
         "86% intent recognition accuracy",
         "70% reduction in average response time",
-        "Handles 51% of all inbound inquiries (~5,500/month)",
+        "Handles 51% of all inbound inquiries (~10,500/month)",
         "Multi-turn dialogue capabilities",
         "Real-time response generation",
         "Comprehensive analytics and monitoring",
+        "Agentic Trip Search Engine",
       ],
       tech: ["Python", "LLMs", "FastAPI", "AWS", "NLP"],
       company: "Tryp.com",
