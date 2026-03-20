@@ -1,14 +1,17 @@
 import { useState, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 import {
   Github,
   Linkedin,
   Mail,
   MapPin,
-  ExternalLink,
   ChevronDown,
   FileText,
   X,
   ArrowLeft,
+  Sun,
+  Moon,
+  Menu,
 } from "lucide-react";
 import { Button } from "@/components/ui/button.jsx";
 import profilePicture from "./assets/photo.jpg";
@@ -18,6 +21,10 @@ import coverBevar from "./assets/BevarVictor.png";
 import coverFocolax from "./assets/Focolax.png";
 import coverSandra from "./assets/Sandra.png";
 import coverPodcast from "./assets/PodcastListenTime.png";
+import { BGPattern } from "@/components/ui/bg-pattern";
+import FooterSection from "@/components/ui/footer";
+import { GlassBlogCard } from "@/components/ui/glass-blog-card-shadcnui";
+import { LogosSection } from "@/components/ui/logos-section";
 import "./App.css";
 
 function Typewriter({
@@ -76,18 +83,29 @@ function Typewriter({
   );
 }
 
+function readStoredTheme() {
+  if (typeof window === "undefined") return true;
+  const stored = localStorage.getItem("theme");
+  if (stored === "dark") return true;
+  if (stored === "light") return false;
+  return window.matchMedia("(prefers-color-scheme: dark)").matches;
+}
+
+const navItems = [
+  { id: "projects", label: "Work" },
+  { id: "education", label: "Education" },
+];
+
 function App() {
   const [isDark, setIsDark] = useState(true);
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
   const scrollYRef = useRef(0);
 
   useEffect(() => {
-    if (isDark) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }, [isDark]);
+    document.documentElement.classList.add("dark");
+    localStorage.setItem("theme", "dark");
+  }, []);
 
   // Lock background scroll when a project card (modal) is open
   useEffect(() => {
@@ -122,6 +140,7 @@ function App() {
   }, [selectedProject]);
 
   const scrollToSection = (sectionId) => {
+    setMobileNavOpen(false);
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
@@ -314,56 +333,34 @@ function App() {
     },
   ];
 
-  const skills = {
-    "Programming Languages": ["Python", "Java", "C#", "JavaScript"],
-    "AI & ML": [
-      "LLaMA AI",
-      "OpenAI",
-      "PyTorch",
-      "TensorFlow",
-      "Scikit Learn",
-      "DSPy",
-      "LangChain",
-    ],
-    "Cloud & DevOps": ["AWS", "GCP", "Git", "REST API", "FastAPI"],
-    "Data & Analytics": [
-      "MySQL",
-      "Pandas",
-      "NumPy",
-      "Matplotlib",
-      "Seaborn",
-      "SciPy",
-    ],
-    "Vector Databases": ["Pinecone", "ChromaDB"],
-    "Other Tools": [
-      "LangGraph",
-      "LangSmith",
-      "HuggingFace",
-      "LaTeX",
-      "Pydantic",
-      "MCP",
-    ],
-  };
 
   const ProjectModal = ({ project, onClose }) => {
     if (!project) return null;
 
     return (
-      <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4">
-        <div className="bg-card border border-border rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-          <div className="sticky top-0 bg-card border-b border-border p-4 sm:p-6 flex items-center justify-between">
-            <Button variant="ghost" size="sm" onClick={onClose}>
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to Projects
+      <div
+        className="fixed inset-0 bg-background/85 backdrop-blur-md z-50 flex items-center justify-center p-3 sm:p-4"
+        onClick={onClose}
+        role="dialog"
+        aria-modal="true"
+      >
+        <div
+          className="bg-card border border-border/80 rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-lg shadow-foreground/5"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="sticky top-0 bg-card/95 backdrop-blur border-b border-border/60 px-4 py-3 sm:px-6 sm:py-4 flex items-center justify-between gap-2">
+            <Button variant="ghost" size="sm" onClick={onClose} className="text-muted-foreground">
+              <ArrowLeft className="w-4 h-4 mr-2 shrink-0" />
+              Back
             </Button>
-            <Button variant="ghost" size="sm" onClick={onClose}>
+            <Button variant="ghost" size="icon" onClick={onClose} aria-label="Close">
               <X className="w-4 h-4" />
             </Button>
           </div>
 
-          <div className="p-4 sm:p-6">
+          <div className="p-4 sm:p-6 sm:pt-5">
             <div className="mb-6">
-              <div className="w-full aspect-[3/2] bg-muted rounded-lg mb-6 flex items-center justify-center overflow-hidden">
+              <div className="w-full aspect-[3/2] bg-muted/50 rounded-xl mb-6 flex items-center justify-center overflow-hidden">
                 {project.coverImage &&
                 !String(project.coverImage).startsWith("/api/placeholder") ? (
                   <img
@@ -484,332 +481,282 @@ function App() {
 
   const cvHref = import.meta.env.BASE_URL + "CV.pdf";
 
+  const motionSafe = {
+    initial: { opacity: 0, y: 12 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true, margin: "-48px" },
+    transition: { duration: 0.4, ease: [0.2, 0.8, 0.2, 1] },
+  };
+
   return (
-    <div className="min-h-screen metallic-bg text-foreground overflow-x-hidden">
-      {/* Hero Section */}
-      <section className="section min-h-screen flex items-center justify-center px-4 sm:px-6 relative pt-6 sm:pt-0 safe-pt">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="mb-8">
-            <img
-              src={profilePicture}
-              alt="Vladyslav Horbatenko"
-              className="w-32 h-32 rounded-full mx-auto mb-6 object-cover border-2 border-border mt-4 sm:mt-0"
-            />
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 metallic-name">
-              Vladyslav Horbatenko
+    <div className="min-h-screen page-canvas text-foreground overflow-x-hidden relative z-0">
+      <div className="fixed inset-0 z-[-1] pointer-events-none bg-background">
+        <BGPattern variant="dots" mask="fade-bottom" className="opacity-[0.15]" fill="currentColor" size={20} />
+      </div>
+      <div className="relative z-10">
+        <header className="section-wrap sticky top-0 z-40 border-b border-border/50 bg-background/75 backdrop-blur-xl safe-px">
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 py-3 sm:py-4">
+          <button
+            type="button"
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className="font-display text-sm font-semibold tracking-tight text-foreground hover:opacity-80 transition-opacity"
+          >
+            VH
+          </button>
+          <nav className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
+            {navItems.map(({ id, label }) => (
+              <button
+                key={id}
+                type="button"
+                onClick={() => scrollToSection(id)}
+                className="hover:text-foreground transition-colors"
+              >
+                {label}
+              </button>
+            ))}
+          </nav>
+          <div className="flex items-center gap-2">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="md:hidden"
+              onClick={() => setMobileNavOpen((o) => !o)}
+              aria-expanded={mobileNavOpen}
+              aria-label="Menu"
+            >
+              <Menu className="h-5 w-5" />
+            </Button>
+          </div>
+        </div>
+        {mobileNavOpen && (
+          <div className="md:hidden border-t border-border/50 bg-background/95 safe-px py-4 flex flex-col gap-1">
+            {navItems.map(({ id, label }) => (
+              <button
+                key={id}
+                type="button"
+                onClick={() => scrollToSection(id)}
+                className="text-left py-2.5 text-sm text-foreground"
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+        )}
+      </header>
+
+      {/* Hero */}
+      <section className="section-wrap min-h-[calc(100vh-3.5rem)] flex items-center safe-px safe-pt py-12 sm:py-16 pb-4 sm:pb-6">
+        <div className="mx-auto grid w-full max-w-6xl gap-8 lg:grid-cols-12 lg:gap-16 lg:items-center">
+          <motion.div
+            className="lg:col-span-7 order-2 lg:order-1 flex flex-col items-center text-center lg:items-start lg:text-left"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: [0.2, 0.8, 0.2, 1] }}
+          >
+            <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground mb-3">
+              Portfolio · Copenhagen
+            </p>
+            <h1 className="font-display text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl xl:text-7xl leading-[1.05] mb-4">
+              Vladyslav
+              <span className="block text-muted-foreground">Horbatenko</span>
             </h1>
-            <div className="text-lg md:text-2xl text-muted-foreground mb-2 h-7 md:h-8">
+            <div className="text-lg sm:text-xl text-muted-foreground mb-4 min-h-[1.75rem]">
               <Typewriter
                 phrases={[
-                  "AI Engineer",
-                  "Data Science",
-                  "Computer Science",
-                  "AWS Infrastructure",
-                  "LLM Applications",
-                  "Business Automation",
+                  "AI engineer",
+                  "Human-centered systems",
+                  "LLM applications",
+                  "Data & ML",
+                  "Cloud & automation",
                 ]}
+                typingDelayMs={75}
+                deletingDelayMs={45}
               />
             </div>
-            <div className="flex items-center justify-center gap-2 text-muted-foreground mb-8">
-              <MapPin className="w-4 h-4" />
+            <p className="text-base sm:text-lg text-muted-foreground max-w-xl leading-relaxed mb-6">
+              MSc in Human-Centered AI at DTU. I build practical intelligent
+              systems—NLP, retrieval, and cloud infrastructure—that hold up in
+              production.
+            </p>
+            <div className="flex flex-wrap justify-center lg:justify-start gap-2 sm:gap-3">
+              <Button variant="default" size="lg" asChild className="rounded-full px-6">
+                <a href={cvHref} target="_blank" rel="noopener noreferrer">
+                  <FileText className="w-4 h-4 mr-2" />
+                  Résumé
+                </a>
+              </Button>
+              <Button variant="outline" size="lg" asChild className="rounded-full px-6 border-border/70">
+                <a href="mailto:vladyslav.horbatenko.work@gmail.com">
+                  <Mail className="w-4 h-4 mr-2" />
+                  Email
+                </a>
+              </Button>
+              <Button variant="ghost" size="lg" asChild className="rounded-full">
+                <a
+                  href="https://github.com/rifolio"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Github className="w-4 h-4 mr-2" />
+                  GitHub
+                </a>
+              </Button>
+              <Button variant="ghost" size="lg" asChild className="rounded-full">
+                <a
+                  href="https://www.linkedin.com/in/vladyslav-horbatenko/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Linkedin className="w-4 h-4 mr-2" />
+                  LinkedIn
+                </a>
+              </Button>
+            </div>
+          </motion.div>
+          <motion.div
+            className="lg:col-span-5 order-1 lg:order-2 flex flex-col items-center lg:items-end"
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.55, delay: 0.08, ease: [0.2, 0.8, 0.2, 1] }}
+          >
+            <div className="relative">
+              <div
+                className="absolute -inset-3 rounded-full bg-gradient-to-br from-primary/15 via-transparent to-accent/20 blur-2xl"
+                aria-hidden
+              />
+              <img
+                src={profilePicture}
+                alt="Vladyslav Horbatenko"
+                className="relative w-40 h-40 sm:w-48 sm:h-48 rounded-full object-cover ring-1 ring-border/80 shadow-2xl shadow-foreground/5"
+              />
+            </div>
+            <div className="mt-4 flex items-center justify-center lg:justify-end gap-2 text-sm text-muted-foreground">
+              <MapPin className="w-4 h-4 shrink-0 opacity-70" />
               <span>Copenhagen, Denmark</span>
             </div>
-          </div>
-
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 leading-relaxed">
-            Currently pursuing MSc in Human-Centered AI at DTU. Passionate about
-            developing intelligent systems that solve real-world problems
-            through machine learning, natural language processing, and cloud
-            technologies.
-          </p>
-
-          <div className="flex flex-col sm:flex-row flex-wrap items-stretch justify-center gap-3 sm:gap-4 mb-12 max-w-sm sm:max-w-none mx-auto w-full">
-            <Button
-              variant="outline"
-              size="lg"
-              asChild
-              className="w-full sm:w-auto"
+            <button
+              type="button"
+              onClick={() => scrollToSection("projects")}
+              className="mt-10 hidden lg:flex items-center gap-2 text-xs uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors"
             >
-              <a
-                href="https://github.com/rifolio"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Github className="w-5 h-5 mr-2" />
-                GitHub
-              </a>
-            </Button>
-            <Button
-              variant="outline"
-              size="lg"
-              asChild
-              className="w-full sm:w-auto"
-            >
-              <a
-                href="https://www.linkedin.com/in/vladyslav-horbatenko/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Linkedin className="w-5 h-5 mr-2" />
-                LinkedIn
-              </a>
-            </Button>
-            <Button
-              variant="outline"
-              size="lg"
-              asChild
-              className="w-full sm:w-auto"
-            >
-              <a href="mailto:vladyslav.horbatenko.work@gmail.com">
-                <Mail className="w-5 h-5 mr-2" />
-                Contact
-              </a>
-            </Button>
-            <Button size="lg" asChild className="w-full sm:w-auto">
-              <a href={cvHref} target="_blank" rel="noopener noreferrer">
-                <FileText className="w-5 h-5 mr-2" />
-                CV
-              </a>
-            </Button>
-          </div>
-
-          <button
-            onClick={() => scrollToSection("projects")}
-            className="animate-bounce text-muted-foreground hover:text-foreground transition-colors"
-          >
-            <ChevronDown className="w-8 h-8" />
-          </button>
+              Scroll
+              <ChevronDown className="w-4 h-4 motion-safe:animate-bounce" />
+            </button>
+          </motion.div>
         </div>
       </section>
 
-      {/* Projects Section */}
-      <section id="projects" className="section py-20 px-4 sm:px-6">
+      <LogosSection />
+
+      {/* Projects */}
+      <section id="projects" className="section-wrap py-12 sm:py-16 safe-px">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
-            Featured Projects
-          </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 auto-rows-[1fr] items-stretch">
+          <motion.div className="mb-8 sm:mb-10 max-w-2xl" {...motionSafe}>
+            <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground mb-3">
+              Selected work
+            </p>
+            <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight">
+              Projects that shipped
+            </h2>
+            <p className="mt-2 text-muted-foreground leading-relaxed">
+              Production AI, research-grade ML, and integrations across cloud
+              and messaging surfaces.
+            </p>
+          </motion.div>
+          <div className="grid md:grid-cols-3 gap-4 sm:gap-6 auto-rows-[1fr] items-stretch">
             {projects.map((project, index) => (
-              <div
-                key={index}
-                className="bg-card border border-border rounded-lg overflow-hidden hover:border-primary/50 transition-all duration-300 cursor-pointer group flex flex-col card-neon h-full"
-                onClick={() => setSelectedProject(project)}
+              <motion.div
+                key={project.id || index}
+                {...motionSafe}
+                transition={{
+                  ...motionSafe.transition,
+                  delay: Math.min(index * 0.04, 0.2),
+                }}
+                className="flex justify-center"
               >
-                <div className="aspect-[3/2] w-full bg-muted flex items-center justify-center overflow-hidden">
-                  {project.coverImage &&
-                  !String(project.coverImage).startsWith("/api/placeholder") ? (
-                    <img
-                      src={project.coverImage}
-                      alt={project.coverImageAlt || project.title}
-                      className="w-full h-full object-cover"
-                      loading="lazy"
-                    />
-                  ) : (
-                    <div className="px-4 text-center">
-                      <span className="text-sm sm:text-base md:text-lg font-medium text-muted-foreground line-clamp-2">
-                        {project.title}
-                      </span>
-                    </div>
-                  )}
-                </div>
-                <div className="p-6 flex flex-col h-full">
-                  <div className="flex justify-between items-start mb-3">
-                    <h3 className="text-lg font-semibold leading-tight group-hover:text-primary transition-colors line-clamp-2">
-                      {project.title}
-                    </h3>
-                    {project.github ||
-                    project.projectUrl ||
-                    project.companyUrl ? (
-                      <a
-                        href={
-                          project.github ||
-                          project.projectUrl ||
-                          project.companyUrl
+                <GlassBlogCard
+                  title={project.title}
+                  excerpt={project.shortDescription}
+                  image={
+                    project.coverImage &&
+                    !String(project.coverImage).startsWith("/api/placeholder")
+                      ? project.coverImage
+                      : undefined
+                  }
+                  author={
+                    project.company
+                      ? {
+                          name: project.company,
+                          avatar: project.coverImage || "",
                         }
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        aria-label="Open project link"
-                        className="text-muted-foreground hover:text-primary transition-colors shrink-0"
-                      >
-                        <span className="inline-flex items-center justify-center w-4 h-4">
-                          <ExternalLink className="w-4 h-4" strokeWidth={2} />
-                        </span>
-                      </a>
-                    ) : (
-                      <span className="inline-flex items-center justify-center w-4 h-4 shrink-0 text-muted-foreground/60">
-                        <ExternalLink
-                          className="w-4 h-4"
-                          strokeWidth={2}
-                          aria-hidden="true"
-                        />
-                      </span>
-                    )}
-                  </div>
-                  <p className="text-muted-foreground mb-4 text-sm leading-relaxed line-clamp-3">
-                    {project.shortDescription}
-                  </p>
-                  <div className="flex flex-wrap gap-2 mb-3">
-                    {project.tech.slice(0, 3).map((tech, i) => (
-                      <span
-                        key={i}
-                        className="px-2 py-1 bg-primary/10 text-primary text-xs rounded-md"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                    {project.tech.length > 3 && (
-                      <span className="px-2 py-1 bg-muted text-muted-foreground text-xs rounded-md">
-                        +{project.tech.length - 3} more
-                      </span>
-                    )}
-                  </div>
-                  <div className="flex justify-between items-center text-xs text-muted-foreground mt-auto">
-                    {project.company &&
-                      (project.companyUrl ? (
-                        <a
-                          href={project.companyUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-primary hover:underline"
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          {project.company}
-                        </a>
-                      ) : (
-                        <span>{project.company}</span>
-                      ))}
-                    <span>{project.year}</span>
-                  </div>
-                </div>
-              </div>
+                      : undefined
+                  }
+                  date={project.year}
+                  tags={project.tech?.slice(0, 4) ?? []}
+                  ctaLabel="View Project"
+                  onClick={() => setSelectedProject(project)}
+                  className="h-full"
+                />
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Skills Section */}
-      <section id="skills" className="section py-20 px-4 sm:px-6 bg-muted/30">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
-            Skills & Technologies
-          </h2>
-          <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
-            {Object.entries(skills).map(([category, skillList], index) => (
-              <div
-                key={index}
-                className="border border-border rounded-lg p-6 bg-card"
-              >
-                <h3 className="text-lg font-semibold mb-4 text-primary">
-                  {category}
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {skillList.map((skill, i) => (
-                    <span
-                      key={i}
-                      className="px-3 py-1 bg-muted text-muted-foreground text-sm rounded-full"
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Education Section */}
-      <section id="education" className="section py-20 px-4 sm:px-6">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
-            Education
-          </h2>
-          <div className="space-y-6">
-            <div className="border border-border rounded-lg p-6 bg-card">
-              <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
-                <div>
-                  <h3 className="text-xl font-semibold">
-                    MSc in Human-Centered Artificial Intelligence
-                  </h3>
-                  <p className="text-primary font-medium">
-                    Technical University of Denmark (DTU)
-                  </p>
-                </div>
-                <p className="text-sm font-medium mt-2 md:mt-0">
-                  Sep 2025 - Jun 2027
-                </p>
-              </div>
-            </div>
-            <div className="border border-border rounded-lg p-6 bg-card">
-              <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
-                <div>
-                  <h3 className="text-xl font-semibold">
-                    BSc in Computer Science and Mathematics
-                  </h3>
-                  <p className="text-primary font-medium">
-                    Roskilde University (RUC)
-                  </p>
-                </div>
-                <p className="text-sm font-medium mt-2 md:mt-0">
-                  Sep 2022 - Jun 2025
-                </p>
-              </div>
-              <p className="text-muted-foreground text-sm mt-2">
-                Graduated with focus on AI, machine learning, and mathematical
-                modeling
+      {/* Education */}
+      <section
+        id="education"
+        className="section-wrap py-20 sm:py-28 safe-px bg-muted/20 border-t border-border/40"
+      >
+        <div className="max-w-6xl mx-auto">
+          <motion.div className="mb-12 max-w-2xl" {...motionSafe}>
+            <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground mb-3">
+              Background
+            </p>
+            <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight">
+              Education
+            </h2>
+          </motion.div>
+          <div className="relative pl-8 sm:pl-10 border-l border-border/70 space-y-12 sm:space-y-14">
+            <motion.article {...motionSafe}>
+              <div className="absolute w-3 h-3 bg-primary rounded-full -left-[6.5px] mt-1.5 shadow-[0_0_10px_rgba(var(--primary),0.5)]" />
+              <p className="text-xs tabular-nums text-muted-foreground mb-2 font-mono">
+                2025 — 2027
               </p>
-            </div>
+              <h3 className="font-display text-xl font-semibold">
+                MSc, Human-Centered Artificial Intelligence
+              </h3>
+              <p className="text-sm text-primary mt-1 font-medium">
+                Technical University of Denmark (DTU)
+              </p>
+            </motion.article>
+            <motion.article {...motionSafe} transition={{ ...motionSafe.transition, delay: 0.06 }}>
+              <div className="absolute w-3 h-3 bg-muted-foreground/40 rounded-full -left-[6.5px] mt-1.5" />
+              <p className="text-xs tabular-nums text-muted-foreground mb-2 font-mono">
+                2022 — 2025
+              </p>
+              <h3 className="font-display text-xl font-semibold">
+                BSc, Computer Science & Mathematics
+              </h3>
+              <p className="text-sm text-primary mt-1 font-medium">
+                Roskilde University (RUC)
+              </p>
+              <p className="text-muted-foreground text-sm mt-3 max-w-xl leading-relaxed">
+                Focus on AI, machine learning, and mathematical modeling.
+              </p>
+            </motion.article>
           </div>
         </div>
       </section>
 
-      {/* Contact Section */}
-      <section id="contact" className="section py-20 px-4 sm:px-6 bg-muted/30">
-        <div className="max-w-2xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-8">Get In Touch</h2>
-          <p className="text-lg text-muted-foreground mb-8">
-            I'm always interested in discussing new opportunities,
-            collaborations, or just chatting about AI and technology.
-          </p>
-          <div className="flex flex-col sm:flex-row items-stretch justify-center gap-3 sm:gap-4 max-w-sm sm:max-w-none mx-auto">
-            <Button size="lg" asChild className="w-full sm:w-auto">
-              <a href="mailto:vladyslav.horbatenko.work@gmail.com">
-                <Mail className="w-5 h-5 mr-2" />
-                Send Email
-              </a>
-            </Button>
-            <Button
-              variant="outline"
-              size="lg"
-              asChild
-              className="w-full sm:w-auto"
-            >
-              <a
-                href="https://www.linkedin.com/in/vladyslav-horbatenko/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Linkedin className="w-5 h-5 mr-2" />
-                LinkedIn
-              </a>
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="py-8 px-4 sm:px-6 border-t border-border">
-        <div className="max-w-4xl mx-auto text-center text-muted-foreground">
-          <p>&copy; 2025 Vladyslav Horbatenko.</p>
-        </div>
-      </footer>
+      <FooterSection />
 
       {/* Project Modal */}
       <ProjectModal
         project={selectedProject}
         onClose={() => setSelectedProject(null)}
       />
+      </div>
     </div>
   );
 }
