@@ -19,9 +19,7 @@ import coverBevar from "./assets/BevarVictor.png";
 import coverFocolax from "./assets/Focolax.png";
 import coverSandra from "./assets/Sandra.png";
 import coverPodcast from "./assets/PodcastListenTime.png";
-import { BGPattern } from "@/components/ui/bg-pattern";
 import FooterSection from "@/components/ui/footer";
-import { GlassBlogCard } from "@/components/ui/glass-blog-card-shadcnui";
 import { LogosSection } from "@/components/ui/logos-section";
 import "./App.css";
 
@@ -55,7 +53,34 @@ function AnimatedStat({ value, suffix = "", label, sub }) {
   );
 }
 
-// Featured horizontal project card (first / flagship project)
+// Returns true when a project has a real cover image
+function hasCover(project) {
+  return (
+    project.coverImage &&
+    !String(project.coverImage).startsWith("/api/placeholder")
+  );
+}
+
+// Minimal typographic cover for projects without an image
+function ProjectCoverFallback({ project, className }) {
+  const initials = (project.company || project.title)
+    .split(" ")
+    .slice(0, 2)
+    .map((w) => w[0])
+    .join("")
+    .toUpperCase();
+  return (
+    <div
+      className={`flex h-full w-full items-center justify-center bg-white/[0.015] ${className || ""}`}
+    >
+      <span className="font-display-hero text-5xl font-semibold text-white/[0.12] select-none leading-none">
+        {initials}
+      </span>
+    </div>
+  );
+}
+
+// Featured horizontal project card (first / flagship project) — flat, hairline
 function FeaturedProjectCard({ project, onClick }) {
   return (
     <motion.div
@@ -63,10 +88,10 @@ function FeaturedProjectCard({ project, onClick }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
       transition={{ duration: 0.5, ease: [0.2, 0.8, 0.2, 1] }}
-      className="mb-6"
+      className="mb-4 sm:mb-5"
     >
       <div
-        className="group relative rounded-2xl border border-border/50 bg-card/30 backdrop-blur-sm overflow-hidden cursor-pointer transition-all duration-300 hover:border-primary/40 hover:shadow-2xl hover:shadow-primary/10"
+        className="group relative rounded-xl border border-border overflow-hidden cursor-pointer transition-colors duration-300 hover:border-white/20"
         onClick={onClick}
         role="button"
         tabIndex={0}
@@ -77,57 +102,48 @@ function FeaturedProjectCard({ project, onClick }) {
       >
         <div className="grid md:grid-cols-[5fr_7fr]">
           {/* Visual side */}
-          <div className="relative min-h-[200px] md:min-h-[280px] flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary/15 via-primary/5 to-accent/10">
-            {project.coverImage &&
-            !String(project.coverImage).startsWith("/api/placeholder") ? (
+          <div className="relative min-h-[180px] md:min-h-[300px] overflow-hidden border-b md:border-b-0 md:border-r border-border">
+            {hasCover(project) ? (
               <img
                 src={project.coverImage}
                 alt={project.coverImageAlt || project.title}
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                className="h-full w-full object-cover"
               />
             ) : (
-              <div className="text-center p-8 select-none">
-                <div className="font-display-hero text-8xl font-bold text-primary/15 leading-none mb-2">
-                  AI
-                </div>
-                <div className="text-xs text-muted-foreground/40 tracking-[0.2em] uppercase">
-                  Platform
-                </div>
-              </div>
+              <ProjectCoverFallback project={project} />
             )}
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent to-card/30 hidden md:block" />
-            <div className="absolute top-3 left-3">
-              <span className="text-xs font-semibold px-3 py-1 rounded-full bg-primary/20 text-primary border border-primary/30 backdrop-blur-sm">
+            <div className="absolute top-4 left-4">
+              <span className="text-[0.65rem] font-medium uppercase tracking-[0.14em] text-muted-foreground">
                 Featured
               </span>
             </div>
           </div>
 
           {/* Content side */}
-          <div className="p-6 sm:p-8 flex flex-col justify-between">
+          <div className="p-6 sm:p-8 lg:p-10 flex flex-col justify-between">
             <div>
-              <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground mb-3">
+              <p className="text-xs font-medium uppercase tracking-[0.16em] text-muted-foreground mb-4">
                 {project.company} · {project.year}
               </p>
-              <h3 className="font-display text-2xl lg:text-3xl font-bold mb-3 leading-tight group-hover:text-primary transition-colors duration-200">
+              <h3 className="font-display text-2xl lg:text-3xl font-semibold mb-3 leading-tight tracking-tight">
                 {project.title}
               </h3>
-              <p className="text-muted-foreground leading-relaxed mb-5 text-sm sm:text-base max-w-md">
+              <p className="text-muted-foreground leading-relaxed mb-6 text-sm sm:text-base max-w-md">
                 {project.shortDescription}
               </p>
-              <div className="flex flex-wrap gap-1.5 mb-6">
+              <div className="flex flex-wrap gap-1.5 mb-8">
                 {project.tech.slice(0, 6).map((tech) => (
                   <span
                     key={tech}
-                    className="text-xs px-2.5 py-1 rounded-full bg-primary/10 text-primary border border-primary/20"
+                    className="text-xs px-2.5 py-1 rounded-md border border-border text-muted-foreground"
                   >
                     {tech}
                   </span>
                 ))}
               </div>
             </div>
-            <div className="flex items-center gap-2 text-sm font-semibold text-primary group-hover:gap-3 transition-all duration-200">
-              View Project
+            <div className="flex items-center gap-2 text-sm font-medium text-primary">
+              View project
               <span className="transition-transform duration-200 group-hover:translate-x-1">
                 →
               </span>
@@ -136,6 +152,54 @@ function FeaturedProjectCard({ project, onClick }) {
         </div>
       </div>
     </motion.div>
+  );
+}
+
+// Unified minimal project card — flat, hairline, no glass/gradient
+function ProjectCard({ project, onClick }) {
+  return (
+    <div
+      className="group flex h-full flex-col overflow-hidden rounded-xl border border-border cursor-pointer transition-colors duration-300 hover:border-white/20"
+      role="button"
+      tabIndex={0}
+      onClick={onClick}
+      onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && onClick?.()}
+      aria-label={`View project: ${project.title}`}
+    >
+      <div className="relative aspect-[16/10] overflow-hidden border-b border-border">
+        {hasCover(project) ? (
+          <img
+            src={project.coverImage}
+            alt={project.coverImageAlt || project.title}
+            loading="lazy"
+            className="h-full w-full object-cover"
+          />
+        ) : (
+          <ProjectCoverFallback project={project} />
+        )}
+      </div>
+      <div className="flex flex-1 flex-col p-5">
+        <p className="text-[0.7rem] font-medium uppercase tracking-[0.14em] text-muted-foreground mb-2.5">
+          {project.company || "Project"} · {project.year}
+        </p>
+        <h3 className="font-display text-lg font-semibold leading-snug tracking-tight mb-2">
+          {project.title}
+        </h3>
+        <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2 mb-4">
+          {project.shortDescription}
+        </p>
+        <div className="mt-auto flex flex-wrap gap-1.5">
+          {project.tech?.slice(0, 3).map((tech) => (
+            <span
+              key={tech}
+              className="text-xs px-2 py-0.5 rounded-md border border-border text-muted-foreground"
+            >
+              {tech}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -587,7 +651,7 @@ function App() {
                 <ul className="space-y-2">
                   {project.features.map((feature, index) => (
                     <li key={index} className="flex items-start">
-                      <span className="w-2 h-2 bg-primary rounded-full mt-2 mr-3 flex-shrink-0" />
+                      <span className="w-1.5 h-1.5 bg-muted-foreground/60 rounded-full mt-2 mr-3 flex-shrink-0" />
                       <span className="text-muted-foreground">{feature}</span>
                     </li>
                   ))}
@@ -602,7 +666,7 @@ function App() {
                   {project.tech.map((tech, index) => (
                     <span
                       key={index}
-                      className="px-3 py-1 bg-primary/10 text-primary text-sm rounded-full"
+                      className="px-3 py-1 border border-border text-muted-foreground text-sm rounded-md"
                     >
                       {tech}
                     </span>
@@ -638,18 +702,6 @@ function App() {
 
   return (
     <div className="min-h-screen page-canvas text-foreground overflow-x-hidden relative z-0">
-      {/* Background: dot grid + aurora glow */}
-      <div className="fixed inset-0 z-[-1] pointer-events-none bg-background">
-        <BGPattern
-          variant="dots"
-          mask="fade-bottom"
-          className="opacity-[0.08]"
-          fill="currentColor"
-          size={24}
-        />
-        <div className="aurora-bg" />
-      </div>
-
       <div className="relative z-10">
         {/* ── Header ─────────────────────────────────────────────────── */}
         <header className="section-wrap sticky top-0 z-40 border-b border-border/40 bg-background/70 backdrop-blur-xl safe-px">
@@ -799,30 +851,10 @@ function App() {
               transition={{ duration: 0.6, delay: 0.1, ease: [0.2, 0.8, 0.2, 1] }}
             >
               <div className="relative">
-                {/* Outer glow ring */}
-                <div
-                  className="absolute -inset-4 rounded-full"
-                  style={{
-                    background:
-                      "radial-gradient(circle, oklch(0.769 0.188 70 / 0.18) 0%, transparent 70%)",
-                  }}
-                  aria-hidden
-                />
-                {/* Teal ring */}
-                <div
-                  className="absolute -inset-[3px] rounded-full"
-                  style={{
-                    background:
-                      "conic-gradient(from 0deg, oklch(0.769 0.188 70 / 0.6), oklch(0.769 0.188 70 / 0.1), oklch(0.769 0.188 70 / 0.6))",
-                    borderRadius: "9999px",
-                  }}
-                  aria-hidden
-                />
                 <img
                   src={profilePicture}
                   alt="Vladyslav Horbatenko"
-                  className="relative w-40 h-40 sm:w-52 sm:h-52 rounded-full object-cover shadow-2xl"
-                  style={{ boxShadow: "0 0 40px oklch(0.769 0.188 70 / 0.15)" }}
+                  className="relative w-40 h-40 sm:w-52 sm:h-52 rounded-full object-cover ring-1 ring-white/10"
                 />
               </div>
 
@@ -870,14 +902,14 @@ function App() {
                     delay: i * 0.07,
                   }}
                 >
-                  <h3 className="font-display text-sm font-semibold mb-3 text-primary">
+                  <h3 className="font-display text-sm font-semibold mb-4 text-foreground">
                     {domain.name}
                   </h3>
                   <div className="flex flex-wrap gap-1.5">
                     {domain.skills.map((skill) => (
                       <span
                         key={skill}
-                        className="text-xs px-2 py-0.5 rounded-md bg-muted/70 text-muted-foreground border border-border/60"
+                        className="text-xs px-2 py-0.5 rounded-md text-muted-foreground border border-border"
                       >
                         {skill}
                       </span>
@@ -924,30 +956,10 @@ function App() {
                     ...motionSafe.transition,
                     delay: Math.min(index * 0.05, 0.25),
                   }}
-                  className="flex justify-center"
                 >
-                  <GlassBlogCard
-                    title={project.title}
-                    excerpt={project.shortDescription}
-                    image={
-                      project.coverImage &&
-                      !String(project.coverImage).startsWith("/api/placeholder")
-                        ? project.coverImage
-                        : undefined
-                    }
-                    author={
-                      project.company
-                        ? {
-                            name: project.company,
-                            avatar: project.coverImage || "",
-                          }
-                        : undefined
-                    }
-                    date={project.year}
-                    tags={project.tech?.slice(0, 4) ?? []}
-                    ctaLabel="View Project"
+                  <ProjectCard
+                    project={project}
                     onClick={() => setSelectedProject(project)}
-                    className="h-full"
                   />
                 </motion.div>
               ))}
@@ -958,8 +970,7 @@ function App() {
         {/* ── Education ──────────────────────────────────────────────── */}
         <section
           id="education"
-          className="section-wrap py-20 sm:py-28 safe-px border-t border-border/40"
-          style={{ background: "oklch(0.141 0.005 286 / 0.6)" }}
+          className="section-wrap py-20 sm:py-28 safe-px border-t border-border"
         >
           <div className="max-w-6xl mx-auto">
             <motion.div className="mb-12 max-w-2xl" {...motionSafe}>
@@ -971,22 +982,16 @@ function App() {
               </h2>
             </motion.div>
 
-            <div className="relative pl-8 sm:pl-10 border-l border-border/60 space-y-12 sm:space-y-14">
+            <div className="relative pl-8 sm:pl-10 border-l border-border space-y-12 sm:space-y-14">
               <motion.article {...motionSafe}>
-                <div
-                  className="absolute w-3 h-3 rounded-full -left-[6.5px] mt-1.5"
-                  style={{
-                    background: "oklch(0.769 0.188 70)",
-                    boxShadow: "0 0 10px oklch(0.769 0.188 70 / 0.6)",
-                  }}
-                />
+                <div className="absolute w-2.5 h-2.5 rounded-full -left-[5.5px] mt-1.5 bg-primary" />
                 <p className="text-xs tabular-nums text-muted-foreground mb-2 font-mono">
                   2025 — 2027
                 </p>
                 <h3 className="font-display text-xl font-semibold">
                   MSc, Human-Centered Artificial Intelligence
                 </h3>
-                <p className="text-sm text-primary mt-1 font-medium">
+                <p className="text-sm text-muted-foreground mt-1 font-medium">
                   Technical University of Denmark (DTU)
                 </p>
               </motion.article>
@@ -995,14 +1000,14 @@ function App() {
                 {...motionSafe}
                 transition={{ ...motionSafe.transition, delay: 0.06 }}
               >
-                <div className="absolute w-3 h-3 bg-muted-foreground/40 rounded-full -left-[6.5px] mt-1.5" />
+                <div className="absolute w-2.5 h-2.5 rounded-full -left-[5.5px] mt-1.5 bg-muted-foreground/40" />
                 <p className="text-xs tabular-nums text-muted-foreground mb-2 font-mono">
                   2022 — 2025
                 </p>
                 <h3 className="font-display text-xl font-semibold">
                   BSc, Computer Science & Mathematics
                 </h3>
-                <p className="text-sm text-primary mt-1 font-medium">
+                <p className="text-sm text-muted-foreground mt-1 font-medium">
                   Roskilde University (RUC)
                 </p>
                 <p className="text-muted-foreground text-sm mt-3 max-w-xl leading-relaxed">

@@ -8,8 +8,8 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  --font-display: "Syne", system-ui, sans-serif;
-  --font-display-hero: "Bricolage Grotesque", "Syne", system-ui, sans-serif;
+  --font-display: "Bricolage Grotesque", system-ui, sans-serif;
+  --font-display-hero: "Bricolage Grotesque", system-ui, sans-serif;
   --font-sans: "IBM Plex Sans", system-ui, sans-serif;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -80,23 +80,23 @@
 }
 
 .dark {
-  /* #18181B */ --background: oklch(0.141 0.005 286);
+  /* #0B0B0B */ --background: oklch(0.135 0 0);
   /* #FAFAFA */ --foreground: oklch(0.985 0 0);
-  /* #27272A */ --card: oklch(0.207 0.006 286);
+  /* #161616 */ --card: oklch(0.185 0 0);
                 --card-foreground: oklch(0.985 0 0);
-                --popover: oklch(0.207 0.006 286);
+                --popover: oklch(0.185 0 0);
                 --popover-foreground: oklch(0.985 0 0);
   /* #F59E0B */ --primary: oklch(0.769 0.188 70);
-                --primary-foreground: oklch(0.141 0.005 286);
-                --secondary: oklch(0.255 0.006 286);
+                --primary-foreground: oklch(0.135 0 0);
+                --secondary: oklch(0.22 0 0);
                 --secondary-foreground: oklch(0.985 0 0);
-                --muted: oklch(0.255 0.006 286);
-  /* #A1A1AA */ --muted-foreground: oklch(0.666 0.007 286);
-                --accent: oklch(0.255 0.006 286);
+                --muted: oklch(0.22 0 0);
+  /* #A1A1AA */ --muted-foreground: oklch(0.66 0 0);
+                --accent: oklch(0.22 0 0);
                 --accent-foreground: oklch(0.985 0 0);
                 --destructive: oklch(0.65 0.2 25);
-                --border: oklch(0.255 0.006 286);
-                --input: oklch(0.255 0.006 286);
+  /* hairline */ --border: oklch(1 0 0 / 0.09);
+                --input: oklch(1 0 0 / 0.12);
                 --ring: oklch(0.769 0.188 70);
   --chart-1: oklch(0.769 0.188 70);
   --chart-2: oklch(0.70 0.12 180);
@@ -196,25 +196,11 @@ h6 {
   overflow-wrap: anywhere;
 }
 
-/* Quiet canvas: soft wash + grain */
+/* Quiet canvas: flat surface, structure from hairlines + whitespace */
 .page-canvas {
   position: relative;
   min-height: 100vh;
   background-color: var(--background);
-}
-
-.page-canvas::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.04;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  z-index: 50;
-}
-
-.dark .page-canvas::after {
-  opacity: 0.06;
 }
 
 .section-wrap {
@@ -245,19 +231,7 @@ h6 {
   font-family: var(--font-display-hero);
 }
 
-/* Aurora background overlay */
-.aurora-bg {
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 90% 55% at 5% -25%, oklch(0.769 0.188 70 / 0.08) 0%, transparent 65%),
-    radial-gradient(ellipse 65% 45% at 95% 115%, oklch(0.769 0.188 70 / 0.05) 0%, transparent 60%),
-    radial-gradient(ellipse 50% 40% at 55% 60%, oklch(0.769 0.188 70 / 0.02) 0%, transparent 70%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Specialty chips in hero */
+/* Specialty chips in hero — monochrome */
 .specialty-chip {
   display: inline-flex;
   align-items: center;
@@ -265,15 +239,15 @@ h6 {
   font-weight: 500;
   padding: 0.25rem 0.75rem;
   border-radius: 9999px;
-  border: 1px solid oklch(0.769 0.188 70 / 0.35);
-  background: oklch(0.769 0.188 70 / 0.10);
-  color: oklch(0.769 0.188 70);
-  letter-spacing: 0.02em;
-  transition: background 0.2s ease, border-color 0.2s ease;
+  border: 1px solid oklch(1 0 0 / 0.1);
+  background: transparent;
+  color: var(--muted-foreground);
+  letter-spacing: 0.01em;
+  transition: color 0.2s ease, border-color 0.2s ease;
 }
 .specialty-chip:hover {
-  background: oklch(0.769 0.188 70 / 0.18);
-  border-color: oklch(0.769 0.188 70 / 0.55);
+  color: var(--foreground);
+  border-color: oklch(1 0 0 / 0.22);
 }
 
 /* Status badge */
@@ -281,44 +255,32 @@ h6 {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   color: var(--muted-foreground);
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
 }
 
 .status-dot {
-  width: 0.5rem;
-  height: 0.5rem;
+  width: 0.4rem;
+  height: 0.4rem;
   border-radius: 9999px;
   background: oklch(0.769 0.188 70);
-  box-shadow: 0 0 6px oklch(0.769 0.188 70 / 0.7);
-  animation: statusPulse 2.5s ease-in-out infinite;
 }
 
-@keyframes statusPulse {
-  0%, 100% { opacity: 1; box-shadow: 0 0 6px oklch(0.769 0.188 70 / 0.7); }
-  50% { opacity: 0.6; box-shadow: 0 0 12px oklch(0.769 0.188 70 / 0.4); }
-}
-
-/* Expertise domain card */
+/* Expertise domain card — flat, hairline */
 .expertise-domain-card {
-  padding: 1.25rem;
-  border-radius: 1rem;
-  border: 1px solid oklch(0.255 0.006 286);
-  background: oklch(0.207 0.006 286 / 0.7);
-  backdrop-filter: blur(8px);
-  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  border: 1px solid var(--border);
+  background: transparent;
+  transition: border-color 0.25s ease, background 0.25s ease;
 }
 .expertise-domain-card:hover {
-  border-color: oklch(0.769 0.188 70 / 0.45);
-  box-shadow: 0 4px 24px oklch(0.769 0.188 70 / 0.08);
-}
-
-/* Stats section dividers */
-.stat-divider {
-  height: 1px;
-  background: linear-gradient(to right, transparent, oklch(0.769 0.188 70 / 0.25), transparent);
+  border-color: oklch(1 0 0 / 0.18);
+  background: oklch(1 0 0 / 0.015);
 }
 
 /* Hide scrollbar visually while keeping scroll functionality */
@@ -338,13 +300,14 @@ h6 {
 .nav-item::after {
   content: '';
   position: absolute;
-  bottom: -2px;
+  bottom: -3px;
   left: 0;
   right: 0;
   height: 1px;
-  background: oklch(0.769 0.188 70);
+  background: var(--foreground);
   transform: scaleX(0);
-  transition: transform 0.2s ease;
+  transform-origin: left;
+  transition: transform 0.25s ease;
 }
 .nav-item:hover::after {
   transform: scaleX(1);

@@ -20,8 +20,7 @@ export default function FooterSection() {
   const cvHref = import.meta.env.BASE_URL + "CV.pdf";
 
   return (
-    <footer className="py-16 md:py-24 border-t border-border/50 bg-background/50 backdrop-blur-sm relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent z-[-1]"></div>
+    <footer className="py-16 md:py-24 border-t border-border relative overflow-hidden">
       <div className="mx-auto max-w-5xl safe-px relative z-10">
         <div className="flex flex-col items-center justify-center space-y-8">
           <div className="text-center">
@@ -46,7 +45,7 @@ export default function FooterSection() {
           </div>
 
           <div className="flex flex-wrap justify-center gap-4">
-            <Button variant="ghost" size="icon" asChild className="rounded-full hover:bg-primary/10 hover:text-primary">
+            <Button variant="ghost" size="icon" asChild className="rounded-full text-muted-foreground hover:bg-white/5 hover:text-foreground">
               <a
                 href="https://github.com/rifolio"
                 target="_blank"
@@ -56,7 +55,7 @@ export default function FooterSection() {
                 <Github className="size-5" />
               </a>
             </Button>
-            <Button variant="ghost" size="icon" asChild className="rounded-full hover:bg-primary/10 hover:text-primary">
+            <Button variant="ghost" size="icon" asChild className="rounded-full text-muted-foreground hover:bg-white/5 hover:text-foreground">
               <a
                 href="https://www.linkedin.com/in/vladyslav-horbatenko/"
                 target="_blank"
@@ -66,7 +65,7 @@ export default function FooterSection() {
                 <Linkedin className="size-5" />
               </a>
             </Button>
-            <Button variant="ghost" size="icon" asChild className="rounded-full hover:bg-primary/10 hover:text-primary">
+            <Button variant="ghost" size="icon" asChild className="rounded-full text-muted-foreground hover:bg-white/5 hover:text-foreground">
               <a
                 href="mailto:vladyslav.horbatenko.work@gmail.com"
                 aria-label="Email"
@@ -74,7 +73,7 @@ export default function FooterSection() {
                 <Mail className="size-5" />
               </a>
             </Button>
-            <Button variant="ghost" size="icon" asChild className="rounded-full hover:bg-primary/10 hover:text-primary">
+            <Button variant="ghost" size="icon" asChild className="rounded-full text-muted-foreground hover:bg-white/5 hover:text-foreground">
               <a
                 href={cvHref}
                 target="_blank"

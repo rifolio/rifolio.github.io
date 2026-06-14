@@ -1,4 +1,3 @@
-import { LogoCloud } from "@/components/ui/logo-cloud-3";
 import { PeermindCompositeLogo } from "@/components/ui/logos/peermind-composite";
 import { cn } from "@/lib/utils";
 
@@ -8,7 +7,6 @@ const logos = [
   {
     src: `${baseUrl}logos/tryp.svg`,
     alt: "Tryp.com",
-    light: true,
   },
   {
     component: <PeermindCompositeLogo />,
@@ -17,13 +15,11 @@ const logos = [
   {
     src: `${baseUrl}logos/novo-nordisk.svg`,
     alt: "Novo Nordisk",
-    light: true,
     size: "lg",
   },
   {
     src: `${baseUrl}logos/ruc.svg`,
     alt: "Roskilde University (RUC)",
-    light: true,
   },
 ];
 
@@ -31,16 +27,40 @@ export function LogosSection({ className }) {
   return (
     <section
       className={cn(
-        "section-wrap safe-px relative space-y-4 border-t border-border/50 pt-6 pb-10",
+        "section-wrap safe-px relative border-t border-border py-12 sm:py-16",
         className
       )}
-      aria-label="Companies I worked in"
+      aria-label="Companies I worked with"
     >
-      <h2 className="text-center font-medium text-lg text-muted-foreground tracking-tight md:text-xl">
-        Companies I worked in
-      </h2>
-      <div className="relative z-10 mx-auto max-w-4xl">
-        <LogoCloud logos={logos} />
+      <div className="mx-auto max-w-5xl">
+        <p className="text-center text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground mb-8">
+          Companies I worked with
+        </p>
+        <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-6 sm:gap-x-16">
+          {logos.map((logo) =>
+            logo.component ? (
+              <div
+                key={logo.alt}
+                className="flex items-center opacity-50 transition-opacity duration-300 hover:opacity-100"
+              >
+                {logo.component}
+              </div>
+            ) : (
+              <img
+                key={logo.alt}
+                src={logo.src}
+                alt={logo.alt}
+                loading="lazy"
+                className={cn(
+                  "w-auto select-none object-contain opacity-50 transition-opacity duration-300 hover:opacity-100 dark:brightness-0 dark:invert",
+                  logo.size === "lg"
+                    ? "h-6 max-h-7 max-w-[150px] md:h-7"
+                    : "h-5 max-h-6 max-w-[110px]"
+                )}
+              />
+            )
+          )}
+        </div>
       </div>
     </section>
   );
