@@ -11,7 +11,7 @@ Hi. I'm Vladyslav Horbatenko, but nobody really calls me that. It's just Vlad.
 
 I build AI systems for a living, I'm a co-founder, and I'm currently doing my MSc in Human-Centered Artificial Intelligence at DTU. What I'm drawn to hasn't really changed since I started: things that are technically interesting, actually useful to real people, and just hard enough at the start that I'm not sure I can pull them off. That little bit of "wait, can I actually do this?" is usually how I know a project is worth my time.
 
-These days most of my energy goes into [PeerMind](https://peermind.de/), where I'm CTO. We're building AI tools for education, and honestly I do a bit of everything. I build a lot, I iterate, I argue things out with the team, I'm deep in the IT and the architecture one day and the business side the next, I try out new frameworks, and I'm changing and improving things basically all the time. Part of that is thinking about how people actually learn: how a student gets stuck, how a teacher puts a lesson together, how a model can read a document and not completely miss the point. But it's also just trying to make the thing genuinely good. Good enough that I'd personally enjoy using it. I find all of it fascinating, not only as a product problem but as a human one.
+These days most of my energy goes into [Peermind](https://peermind.de/), where I'm CTO. We're building AI tools for education, and honestly I do a bit of everything. I build a lot, I iterate, I argue things out with the team, I'm deep in the IT and the architecture one day and the business side the next, I try out new frameworks, and I'm changing and improving things basically all the time. Part of that is thinking about how people actually learn: how a student gets stuck, how a teacher puts a lesson together, how a model can read a document and not completely miss the point. But it's also just trying to make the thing genuinely good. Good enough that I'd personally enjoy using it. I find all of it fascinating, not only as a product problem but as a human one.
 
 On the side I take on consulting and freelance work when something interesting comes along, usually messy AI projects where nobody has figured out the "right" way to do it yet. Those are my favorite. No clean recipe, a bit of research, a bit of engineering, a bit of guessing, a bit of chaos.
 
@@ -71,7 +71,7 @@ And I care a lot about learning itself, about being around curious, ambitious pe
 
 I'm Vlad.
 
-I build AI systems, co-found products, study Human-Centered AI at DTU, work on education tech at PeerMind, build AI for travel at Tryp.com, take on interesting projects on the side, and mostly just keep learning by building.
+I build AI systems, co-found products, study Human-Centered AI at DTU, work on education tech at Peermind, build AI for travel at Tryp.com, take on interesting projects on the side, and mostly just keep learning by building.
 
 I'm into AI, startups, education, social impact, good systems, hard problems, and people who get excited about making useful things.
 
