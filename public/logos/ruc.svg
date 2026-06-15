@@ -1,18 +1,52 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
 <svg
    width="377.95197"
    height="159.08533"
    viewBox="0 0 99.999791 42.091326"
    version="1.1"
-   xmlns="http://www.w3.org/2000/svg">
-  <g transform="translate(-56.756301,-152.19592)">
-    <g transform="matrix(0.52916666,0,0,0.52916666,56.756301,152.1938)">
-      <path d="M 81,497.563 H 0.00390625 V 334.477 H 81 c 54.297,0 103.246,30.867 103.246,84.632 0,53.774 -48.949,78.454 -103.246,78.454" style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none" transform="matrix(0.13333333,0,0,-0.13333333,0,79.546667)" />
-      <path d="m 696.332,102.59 c 62.453,0 103.184,43.023 103.184,104.898 V 596.57 H 593.129 V 207.488 c 0,-61.875 40.726,-104.898 103.203,-104.898" style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none" transform="matrix(0.13333333,0,0,-0.13333333,0,79.546667)" />
-      <path d="m 1206.22,297.176 c 0,-109.719 70.91,-194.879 174.61,-194.879 12.94,0 25.06,1.199 36.49,3.316 v 386.731 c -11.35,2.051 -23.45,3.222 -36.49,3.222 -104.58,0 -174.61,-87.777 -174.61,-198.39" style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none" transform="matrix(0.13333333,0,0,-0.13333333,0,79.546667)" />
-      <path d="M 0,207.543 V 0 H 201.234 L 81,207.543 H 0" style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none" transform="matrix(0.13333333,0,0,-0.13333333,0,79.546667)" />
-      <path d="m 1049.33,298.934 c 0,132.3 70.77,244.707 182.5,297.636 H 959.762 V 218.246 C 959.762,122.336 907.797,42.6758 830.18,0 h 401.18 c -112.25,52.4883 -182.03,166.023 -182.03,298.934" style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none" transform="matrix(0.13333333,0,0,-0.13333333,0,79.546667)" />
-      <path d="M 432.891,218.246 V 596.57 H 244.066 c 58.356,-35.156 98.625,-94.316 98.625,-166 0,-82.871 -40.054,-146.343 -113.937,-188.636 L 377.852,0 H 562.48 C 484.859,42.6758 432.891,122.336 432.891,218.246" style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none" transform="matrix(0.13333333,0,0,-0.13333333,0,79.546667)" />
+   id="svg1"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <g
+     id="layer1"
+     transform="translate(-56.756301,-152.19592)">
+    <g
+       id="group-R5"
+       transform="matrix(0.52916666,0,0,0.52916666,56.756301,152.1938)">
+      <path
+         id="path2"
+         d="M 81,497.563 H 0.00390625 V 334.477 H 81 c 54.297,0 103.246,30.867 103.246,84.632 0,53.774 -48.949,78.454 -103.246,78.454"
+         style="fill:#FFFFFF;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         transform="matrix(0.13333333,0,0,-0.13333333,0,79.546667)" />
+      <path
+         id="path3"
+         d="m 696.332,102.59 c 62.453,0 103.184,43.023 103.184,104.898 V 596.57 H 593.129 V 207.488 c 0,-61.875 40.726,-104.898 103.203,-104.898"
+         style="fill:#FFFFFF;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         transform="matrix(0.13333333,0,0,-0.13333333,0,79.546667)" />
+      <path
+         id="path4"
+         d="m 1206.22,297.176 c 0,-109.719 70.91,-194.879 174.61,-194.879 12.94,0 25.06,1.199 36.49,3.316 v 386.731 c -11.35,2.051 -23.45,3.222 -36.49,3.222 -104.58,0 -174.61,-87.777 -174.61,-198.39"
+         style="fill:#FFFFFF;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         transform="matrix(0.13333333,0,0,-0.13333333,0,79.546667)" />
+      <path
+         id="path5"
+         d="M 0,207.543 V 0 H 201.234 L 81,207.543 H 0"
+         style="fill:#FFFFFF;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         transform="matrix(0.13333333,0,0,-0.13333333,0,79.546667)" />
+      <path
+         id="path6"
+         d="m 1049.33,298.934 c 0,132.3 70.77,244.707 182.5,297.636 H 959.762 V 218.246 C 959.762,122.336 907.797,42.6758 830.18,0 h 401.18 c -112.25,52.4883 -182.03,166.023 -182.03,298.934"
+         style="fill:#FFFFFF;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         transform="matrix(0.13333333,0,0,-0.13333333,0,79.546667)" />
+      <path
+         id="path7"
+         d="M 432.891,218.246 V 596.57 H 244.066 c 58.356,-35.156 98.625,-94.316 98.625,-166 0,-82.871 -40.054,-146.343 -113.937,-188.636 L 377.852,0 H 562.48 C 484.859,42.6758 432.891,122.336 432.891,218.246"
+         style="fill:#FFFFFF;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         transform="matrix(0.13333333,0,0,-0.13333333,0,79.546667)" />
     </g>
   </g>
 </svg>

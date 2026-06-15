@@ -58,3 +58,16 @@ coverage/
 *.backup
 *.old
 
+
+# brainstorm visual companion
+.superpowers/
+
+# local verification artifacts
+.playwright-mcp/
+*-home.png
+phase*.png
+/tmp/vite-dev.log
+*.jpeg
+diag-*.png
+sec-*.png
+fixed-*.png
