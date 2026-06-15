@@ -1,6 +1,6 @@
 ---
 title: AI-Powered Educational Platform
-date: 2025-09-01
+date: 2026-04-02
 year: 2025–Present
 type: project
 tags: [project, ai, rag]

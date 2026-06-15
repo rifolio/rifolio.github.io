@@ -1,7 +1,6 @@
 ---
 title: How MCP Works, Explained with an Airline Booking Example
-date: 2026-06-15
-year: 2026
+date: 2026-06-08
 type: writing
 tags: [writing, mcp, ai, llm]
 slug: how-mcp-works-airlines

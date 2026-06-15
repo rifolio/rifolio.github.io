@@ -1,6 +1,6 @@
 ---
 title: Statistical Analysis of Fruit Fly Fecundity
-date: 2024-11-01
+date: 2026-04-02
 year: 2024
 type: project
 tags: [project, statistics, data-science]

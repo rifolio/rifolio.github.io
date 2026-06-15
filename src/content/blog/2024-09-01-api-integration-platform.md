@@ -1,6 +1,6 @@
 ---
 title: API Integration Platform
-date: 2024-09-01
+date: 2026-04-02
 year: 2024
 type: project
 tags: [project, ai, nlp]
