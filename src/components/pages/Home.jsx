@@ -5,7 +5,6 @@ import About from "@/components/sections/About.jsx";
 import GithubStats from "@/components/sections/GithubStats.jsx";
 import Experience from "@/components/sections/Experience.jsx";
 import Education from "@/components/sections/Education.jsx";
-import Companies from "@/components/sections/Companies.jsx";
 import FooterSection from "@/components/ui/footer";
 
 function Home() {
@@ -21,10 +20,9 @@ function Home() {
         <main>
           <Hero />
           <About />
-          <GithubStats />
           <Experience />
           <Education />
-          <Companies />
+          <GithubStats />
         </main>
         <FooterSection />
       </div>

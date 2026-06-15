@@ -148,7 +148,26 @@ export default function TerminalCard({ title = "zsh", lines = [], className }) {
 
         {/* Body */}
         <div className="px-5 py-4 font-mono text-[13px] leading-relaxed">
-          <div className="min-h-[18rem] space-y-1">
+          <div className="relative">
+            {/* Ghost: reserves the final height so the card never resizes
+                while lines type in. Mirrors the full content + prompt line. */}
+            <div className="invisible space-y-1" aria-hidden="true">
+              {lines.map((line, idx) => (
+                <p
+                  key={`ghost-${idx}`}
+                  className={cn("whitespace-pre-wrap", lineClass(line.type))}
+                >
+                  {line.type === "input" && <Prompt />}
+                  {line.text || " "}
+                </p>
+              ))}
+              <p className="text-foreground">
+                <Prompt />_
+              </p>
+            </div>
+
+            {/* Animated content, overlaid on top of the reserved space. */}
+            <div className="absolute inset-0 space-y-1">
             {rendered.map((line, idx) => {
               const isLast = idx === rendered.length - 1;
               const showInlineCursor =
@@ -172,6 +191,7 @@ export default function TerminalCard({ title = "zsh", lines = [], className }) {
                 <Cursor />
               </p>
             )}
+            </div>
           </div>
         </div>
       </div>

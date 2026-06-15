@@ -1,27 +1,15 @@
 import { motion } from "framer-motion";
 import { experience } from "@/data/experience.js";
 import { companies } from "@/data/companies.js";
-import {
-  TrypLogo,
-  NovoNordiskLogo,
-  PeermindLogo,
-  RucLogo,
-  CoreAILogo,
-} from "@/components/ui/logos/index.js";
+import { LOGO_ASSETS } from "@/lib/logo-assets.js";
+import LogoWall from "@/components/sections/LogoWall.jsx";
+import { cn } from "@/lib/utils";
 
-// Map company name → logo component
-const LOGO_MAP = {
-  TrypLogo,
-  NovoNordiskLogo,
-  PeermindLogo,
-  RucLogo,
-  CoreAILogo,
-};
-
+// Resolve a company name → its real brand asset metadata (or null if none).
 function getLogoForCompany(companyName) {
   const match = companies.find((c) => c.name === companyName);
   if (!match) return null;
-  return LOGO_MAP[match.logo] ?? null;
+  return LOGO_ASSETS[match.logo] ?? null;
 }
 
 const motionEntry = {
@@ -55,10 +43,25 @@ export default function Experience() {
           </p>
         </motion.div>
 
+        {/* Who I've worked with — animated logo wall */}
+        <motion.div className="mb-12" {...motionEntry}>
+          <p className="font-pixel text-[9px] tracking-[0.2em] text-amber-500/80 mb-3 uppercase">
+            Who I&apos;ve worked with
+          </p>
+          <LogoWall />
+        </motion.div>
+
+        {/* My roles */}
+        <motion.div {...motionEntry} transition={{ ...motionEntry.transition, delay: 0.1 }}>
+          <p className="font-pixel text-[9px] tracking-[0.2em] text-amber-500/80 mb-6 uppercase">
+            My roles
+          </p>
+        </motion.div>
+
         {/* Timeline */}
         <div className="relative pl-8 sm:pl-10 border-l border-border space-y-10 sm:space-y-12">
           {experience.map((entry, i) => {
-            const LogoComponent = getLogoForCompany(entry.company);
+            const logo = getLogoForCompany(entry.company);
             const isActive = entry.period.toLowerCase().includes("present");
 
             return (
@@ -85,11 +88,20 @@ export default function Experience() {
                   {/* Top row: logo + meta */}
                   <div className="flex items-start justify-between gap-4 mb-3">
                     <div className="flex items-center gap-3 min-w-0">
-                      {LogoComponent && (
-                        <div className="shrink-0 w-8 h-8 flex items-center justify-center rounded-md border border-border/60 bg-white/[0.03] p-1 overflow-hidden">
-                          <LogoComponent
-                            className="w-full h-full object-contain"
-                            aria-hidden="true"
+                      {logo && (
+                        <div className="shrink-0 w-9 h-9 flex items-center justify-center rounded-md border border-border/60 bg-white/[0.03] p-1.5 overflow-hidden">
+                          <img
+                            src={logo.img}
+                            alt={`${entry.company} logo`}
+                            loading="lazy"
+                            className={cn(
+                              "max-w-full max-h-full w-auto h-auto object-contain transition-all duration-300",
+                              // White silhouette at rest
+                              "brightness-0 invert",
+                              // Restore the asset's baked brand color on card hover
+                              logo.colorOnHover &&
+                                "group-hover:brightness-100 group-hover:invert-0"
+                            )}
                           />
                         </div>
                       )}

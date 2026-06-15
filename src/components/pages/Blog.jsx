@@ -24,7 +24,7 @@ function BlogCard({ post }) {
   return (
     <Link
       to={`/blog/${post.slug}`}
-      className="group block relative bg-card border-2 border-border hover:border-primary transition-colors duration-200 p-6 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+      className="group flex h-full flex-col relative bg-card border-2 border-border hover:border-primary transition-colors duration-200 p-6 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
       style={{
         /* pixel-corner effect — clip the very corners */
         clipPath:
@@ -78,10 +78,30 @@ function BlogCard({ post }) {
   );
 }
 
+const FILTERS = [
+  { id: "all", label: "All" },
+  { id: "writing", label: "Writing" },
+  { id: "project", label: "Projects" },
+];
+
 export default function Blog() {
-  const posts = loadPosts();
-  const totalPages = Math.max(1, Math.ceil(posts.length / PAGE_SIZE));
+  const allPosts = loadPosts();
+  const [filter, setFilter] = useState("all");
   const [page, setPage] = useState(1);
+
+  const posts =
+    filter === "all"
+      ? allPosts
+      : allPosts.filter((p) =>
+          filter === "project" ? p.type === "project" : p.type !== "project",
+        );
+
+  const totalPages = Math.max(1, Math.ceil(posts.length / PAGE_SIZE));
+
+  function selectFilter(id) {
+    setFilter(id);
+    setPage(1);
+  }
 
   function goToPage(p) {
     const clamped = Math.min(Math.max(1, p), totalPages);
@@ -118,10 +138,30 @@ export default function Blog() {
             {/* Scroll anchor */}
             <div id="blog-list-top" />
 
+            {/* Filter tabs */}
+            <div className="flex flex-wrap gap-2 mb-8">
+              {FILTERS.map(({ id, label }) => (
+                <button
+                  key={id}
+                  type="button"
+                  onClick={() => selectFilter(id)}
+                  className={`font-pixel text-[10px] tracking-wide uppercase px-3 py-2 border-2 transition-colors duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
+                    filter === id
+                      ? "border-primary bg-primary/10 text-primary"
+                      : "border-border text-muted-foreground hover:border-primary/50 hover:text-foreground"
+                  }`}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+
             {/* Post grid */}
             {pagePosts.length === 0 ? (
               <p className="font-pixel text-sm text-muted-foreground py-16 text-center">
-                No posts yet — check back soon.
+                {filter === "writing"
+                  ? "To be written…"
+                  : "No posts yet — check back soon."}
               </p>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">

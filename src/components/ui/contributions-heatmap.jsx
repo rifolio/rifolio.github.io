@@ -75,73 +75,69 @@ export function ContributionsHeatmap({ days = [], className }) {
   }
 
   return (
-    <div className={cn("w-full overflow-x-auto pb-1", className)}>
-      {/* Month row */}
-      <div
-        className="flex mb-1.5 min-w-max"
-        style={{ paddingLeft: "1.5rem" /* leave space for day labels */ }}
-      >
-        {weeks.map((_, wi) => {
-          const label = monthPositions.find((m) => m.weekIndex === wi);
-          return (
-            <div
-              key={wi}
-              className="text-[0.6rem] text-muted-foreground/60 leading-none"
-              style={{ width: "0.875rem", marginRight: "0.125rem", flexShrink: 0 }}
-            >
-              {label ? label.month : ""}
-            </div>
-          );
-        })}
+    <div className={cn("w-full pb-1", className)}>
+      {/* Month row — mirrors the grid structure so labels align with columns */}
+      <div className="flex mb-1.5 w-full">
+        {/* spacer matching the day-of-week label column */}
+        <div className="w-4 sm:w-5 mr-1 shrink-0" aria-hidden="true" />
+        <div className="flex flex-1 gap-[2px]">
+          {weeks.map((_, wi) => {
+            const label = monthPositions.find((m) => m.weekIndex === wi);
+            return (
+              <div
+                key={wi}
+                className="flex-1 text-[0.55rem] sm:text-[0.6rem] text-muted-foreground/60 leading-none whitespace-nowrap"
+              >
+                {label ? label.month : ""}
+              </div>
+            );
+          })}
+        </div>
       </div>
 
-      {/* Grid: day-labels column + week columns */}
-      <div className="flex min-w-max gap-0">
+      {/* Grid: day-labels column + fluid week columns */}
+      <div className="flex w-full items-stretch">
         {/* Day-of-week labels */}
-        <div className="flex flex-col gap-0.5 mr-1.5" style={{ width: "1.25rem" }}>
+        <div className="flex flex-col gap-[2px] mr-1 shrink-0 w-4 sm:w-5">
           {["", "Mon", "", "Wed", "", "Fri", ""].map((d, i) => (
             <div
               key={i}
-              className="text-[0.5rem] text-muted-foreground/50 leading-none flex items-center justify-end"
-              style={{ height: "0.875rem" }}
+              className="flex-1 text-[0.45rem] sm:text-[0.5rem] text-muted-foreground/50 leading-none flex items-center justify-end"
             >
               {d}
             </div>
           ))}
         </div>
 
-        {/* Week columns */}
-        {weeks.map((week, wi) => (
-          <div
-            key={wi}
-            className="flex flex-col gap-0.5 mr-0.5"
-          >
-            {Array.from({ length: 7 }).map((_, di) => {
-              const day = week[di];
-              if (!day) {
-                // padding cell
+        {/* Week columns — each fills an equal share of the available width */}
+        <div className="flex flex-1 gap-[2px]">
+          {weeks.map((week, wi) => (
+            <div key={wi} className="flex flex-1 flex-col gap-[2px]">
+              {Array.from({ length: 7 }).map((_, di) => {
+                const day = week[di];
+                if (!day) {
+                  // padding cell
+                  return (
+                    <div
+                      key={di}
+                      className="aspect-square w-full rounded-[2px] border border-transparent"
+                    />
+                  );
+                }
                 return (
                   <div
                     key={di}
-                    className="rounded-[2px] border border-transparent"
-                    style={{ width: "0.875rem", height: "0.875rem" }}
+                    title={`${formatDate(day.date)}: ${day.count} contribution${day.count !== 1 ? "s" : ""}`}
+                    className={cn(
+                      "aspect-square w-full rounded-[2px] border transition-opacity duration-150 hover:opacity-80 cursor-default",
+                      LEVEL_CLASSES[day.level ?? 0]
+                    )}
                   />
                 );
-              }
-              return (
-                <div
-                  key={di}
-                  title={`${formatDate(day.date)}: ${day.count} contribution${day.count !== 1 ? "s" : ""}`}
-                  className={cn(
-                    "rounded-[2px] border transition-opacity duration-150 hover:opacity-80 cursor-default",
-                    LEVEL_CLASSES[day.level ?? 0]
-                  )}
-                  style={{ width: "0.875rem", height: "0.875rem" }}
-                />
-              );
-            })}
-          </div>
-        ))}
+              })}
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Legend */}

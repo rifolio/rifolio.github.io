@@ -3,8 +3,8 @@ import { Button } from "@/components/ui/button";
 
 const links = [
   {
-    title: "Projects",
-    href: "#projects",
+    title: "Blog",
+    href: "/blog",
   },
   {
     title: "Education",

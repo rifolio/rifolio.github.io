@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Github, Linkedin, Mail, FileText, ChevronDown } from "lucide-react";
+import { Github, Linkedin, Mail, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button.jsx";
 import profilePicture from "@/assets/photo.jpg";
 import { socials } from "@/data/site.js";
@@ -8,11 +8,6 @@ const SPECIALTY_TAGS = ["AI Engineer", "LLM Systems", "RAG & Retrieval", "Cloud 
 
 function Hero() {
   const cvHref = import.meta.env.BASE_URL + "CV.pdf";
-
-  const scrollToExpertise = () => {
-    const el = document.getElementById("expertise");
-    if (el) el.scrollIntoView({ behavior: "smooth" });
-  };
 
   return (
     <section className="section-wrap min-h-[calc(100vh-3.5rem)] flex items-center safe-px safe-pt py-12 sm:py-16 pb-4 sm:pb-6">
@@ -102,15 +97,6 @@ function Hero() {
               className="relative w-40 h-40 sm:w-52 sm:h-52 rounded-full object-cover ring-1 ring-white/10"
             />
           </div>
-
-          <button
-            type="button"
-            onClick={scrollToExpertise}
-            className="mt-12 hidden lg:flex items-center gap-2 text-xs uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors"
-          >
-            Scroll
-            <ChevronDown className="w-4 h-4 motion-safe:animate-bounce" />
-          </button>
         </motion.div>
       </div>
     </section>

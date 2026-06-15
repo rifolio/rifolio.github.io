@@ -1,55 +1,7 @@
 import { useCallback, useEffect, useRef } from "react";
-import { motion } from "framer-motion";
 import { companies } from "@/data/companies";
+import { LOGO_ASSETS } from "@/lib/logo-assets.js";
 import { cn } from "@/lib/utils";
-
-const baseUrl = import.meta.env.BASE_URL || "/";
-
-/* --------------------------------------------------------------------------
- * Logo registry — maps the string key from companies.js to the real brand
- * asset (with its baked-in color) + pixel/brand metadata for the shimmer.
- * CoreAI has no real asset on file, so it falls back to the drawn component.
- * ------------------------------------------------------------------------ */
-// Every logo renders WHITE at rest (brightness-0 invert). On hover, logos with
-// `colorOnHover` restore their baked brand color; the rest stay white (their
-// brand is white, or their source art is black and would vanish if restored).
-const LOGO_META = {
-  TrypLogo: {
-    img: `${baseUrl}logos/tryp.svg`, // baked orange
-    colorOnHover: true,
-    brandDark: "#FF6B00",
-    pixelColors: ["#FF6B00", "#FF8C33", "#CC5500"],
-    height: 24,
-  },
-  NovoNordiskLogo: {
-    img: `${baseUrl}logos/novo-nordisk.svg`, // baked blue
-    colorOnHover: true,
-    brandDark: "#2F6BE0",
-    pixelColors: ["#2563EB", "#3B82F6", "#60A5FA"],
-    height: 44,
-  },
-  PeermindLogo: {
-    img: `${baseUrl}logos/peermind.png`, // black artwork → always white
-    colorOnHover: false,
-    brandDark: "#FFFFFF",
-    pixelColors: ["#FFFFFF", "#E5E7EB", "#9CA3AF"],
-    height: 40,
-  },
-  RucLogo: {
-    img: `${baseUrl}logos/ruc.svg`, // white logo
-    colorOnHover: false,
-    brandDark: "#FFFFFF",
-    pixelColors: ["#FFFFFF", "#E5E7EB", "#9CA3AF"],
-    height: 34,
-  },
-  CoreAILogo: {
-    img: `${baseUrl}logos/bevar-ukraine.svg`, // multicolor: red / yellow / blue
-    colorOnHover: true,
-    brandDark: "#0057B7",
-    pixelColors: ["#DC202D", "#FDD202", "#0057B7"],
-    height: 30,
-  },
-};
 
 /* --------------------------------------------------------------------------
  * Pixel canvas — lightweight canvas-based shimmer that ripples outward from
@@ -182,13 +134,12 @@ function PixelCanvas({ colors, gap = 5, speed = 30 }) {
 }
 
 /* --------------------------------------------------------------------------
- * Single company card
+ * Single company cell — real logo, white at rest, brand color on hover, with
+ * the pixel shimmer rippling behind it.
  * ------------------------------------------------------------------------ */
-function CompanyCard({ company }) {
-  const key = company.logo;
-  const meta = LOGO_META[key];
+function LogoCell({ company }) {
+  const meta = LOGO_ASSETS[company.logo];
 
-  // Guard: skip if logo key has no matching component
   if (!meta) {
     return (
       <div className="relative flex flex-col items-center justify-center gap-2 border border-border/40 bg-card/50 p-4 min-h-[110px]">
@@ -199,7 +150,7 @@ function CompanyCard({ company }) {
     );
   }
 
-  const { img, colorOnHover, brandDark, pixelColors, height } = meta;
+  const { img, colorOnHover, brandColor, pixelColors, wallHeight } = meta;
 
   return (
     <div
@@ -210,12 +161,10 @@ function CompanyCard({ company }) {
         "[--brand:var(--brand-color)]",
         "hover:shadow-[0_8px_24px_-8px_color-mix(in_srgb,var(--brand)_30%,transparent),0_0_0_1px_color-mix(in_srgb,var(--brand)_45%,transparent)]"
       )}
-      style={{ "--brand-color": brandDark }}
+      style={{ "--brand-color": brandColor }}
     >
-      {/* Pixel shimmer canvas behind the logo */}
       <PixelCanvas colors={pixelColors} gap={5} speed={30} />
 
-      {/* Logo — white at rest; brand color restored on hover where applicable */}
       <img
         src={img}
         alt={company.name}
@@ -223,15 +172,12 @@ function CompanyCard({ company }) {
         className={cn(
           "relative z-[1] w-auto object-contain transition-all duration-300",
           "group-hover:scale-[1.06]",
-          // White silhouette at rest
           "brightness-0 invert",
-          // Restore the asset's baked brand color on hover
           colorOnHover && "group-hover:brightness-100 group-hover:invert-0"
         )}
-        style={{ height: `${height}px`, maxHeight: `${height}px` }}
+        style={{ height: `${wallHeight}px`, maxHeight: `${wallHeight}px` }}
       />
 
-      {/* Company name label */}
       <span
         className={cn(
           "relative z-[1] font-pixel text-[6px] text-muted-foreground/40 transition-colors duration-300 text-center leading-relaxed px-2",
@@ -245,45 +191,21 @@ function CompanyCard({ company }) {
 }
 
 /* --------------------------------------------------------------------------
- * Section
+ * Animated logo wall — the grid of company logos with the pixel shimmer.
+ * Rendered inside the Experience section as the "who I worked with" band.
  * ------------------------------------------------------------------------ */
-const motionSafe = {
-  initial: { opacity: 0, y: 12 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-48px" },
-  transition: { duration: 0.4, ease: [0.2, 0.8, 0.2, 1] },
-};
-
-export default function Companies() {
+export default function LogoWall({ className }) {
   return (
-    <section
-      id="companies"
-      className="section-wrap py-14 sm:py-18 safe-px border-t border-border/40"
+    <div
+      className={cn(
+        "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-px bg-border/30 border border-border/30",
+        className
+      )}
+      style={{ gridAutoRows: "110px" }}
     >
-      <div className="max-w-6xl mx-auto">
-        <motion.div className="mb-8 max-w-2xl" {...motionSafe}>
-          <p className="font-pixel text-[9px] tracking-[0.2em] text-amber-500/80 mb-3 uppercase">
-            Trusted by
-          </p>
-          <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight">
-            Companies I&apos;ve worked with
-          </h2>
-          <p className="mt-2 text-muted-foreground leading-relaxed text-sm">
-            From startups to pharma giants — real products, real impact.
-          </p>
-        </motion.div>
-
-        <motion.div
-          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-px bg-border/30 border border-border/30"
-          style={{ gridAutoRows: "110px" }}
-          {...motionSafe}
-          transition={{ ...motionSafe.transition, delay: 0.1 }}
-        >
-          {companies.map((company) => (
-            <CompanyCard key={company.name} company={company} />
-          ))}
-        </motion.div>
-      </div>
-    </section>
+      {companies.map((company) => (
+        <LogoCell key={company.name} company={company} />
+      ))}
+    </div>
   );
 }

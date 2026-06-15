@@ -17,7 +17,7 @@ export function parseFrontmatter(raw) {
 export function loadPosts() {
   const mods = import.meta.glob("/src/content/blog/*.md", { eager: true, query: "?raw", import: "default" });
   return Object.values(mods)
-    .map((raw) => { const { meta, body } = parseFrontmatter(raw); return { ...meta, body }; })
+    .map((raw) => { const { meta, body } = parseFrontmatter(raw); return { type: "writing", ...meta, body }; })
     .sort((a, b) => String(b.date).localeCompare(String(a.date)));
 }
 

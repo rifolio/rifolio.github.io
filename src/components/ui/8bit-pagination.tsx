@@ -220,9 +220,11 @@ function PaginationPrevious({
   const { font, className } = props;
   return (
     <PaginationLink
+      {...props}
+      size="default"
       className={cn(
         "relative group",
-        "flex flex-row w-full text-sm",
+        "flex flex-row items-center gap-1 text-sm w-auto",
         "bg-transparent hover:bg-transparent active:bg-transparent focus:bg-transparent",
         "rounded-none border-dashed border-y-4 border-transparent",
         "hover:border-foreground focus:border-foreground active:border-transparent",
@@ -231,7 +233,6 @@ function PaginationPrevious({
         font !== "normal" && "retro",
         className
       )}
-      {...props}
     >
       <ChevronLeftIcon />
       <span className="hidden sm:block">Previous</span>
@@ -246,19 +247,19 @@ function PaginationNext({
 
   return (
     <PaginationLink
+      {...props}
+      size="default"
       className={cn(
         "relative group",
-        "flex flex-row w-full text-sm",
+        "flex flex-row items-center gap-1 text-sm w-auto",
         "bg-transparent hover:bg-transparent active:bg-transparent focus:bg-transparent",
         "rounded-none border-dashed border-y-4 border-transparent",
         "hover:border-foreground focus:border-foreground active:border-transparent",
         "dark:hover:border-ring dark:focus:border-ring",
         "data-[active=true]:border-none aria-[current=page]:border-none",
-        "flex flex-row text-sm w-full",
         font !== "normal" && "retro",
         className
       )}
-      {...props}
     >
       <span className="hidden sm:block">Next</span>
       <ChevronRightIcon />

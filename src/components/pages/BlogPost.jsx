@@ -1,6 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { Github, ExternalLink } from "lucide-react";
 import Navbar from "@/components/layout/Navbar.jsx";
 import NotFound from "@/components/pages/NotFound.jsx";
 import { getPost } from "@/lib/blog.js";
@@ -127,8 +128,14 @@ export default function BlogPost() {
                 dateTime={String(post.date)}
                 className="text-sm text-muted-foreground"
               >
-                {formatDate(post.date)}
+                {post.company ? `${post.company} · ` : ""}
+                {post.year || formatDate(post.date)}
               </time>
+              {post.grade && (
+                <span className="text-sm font-medium text-primary">
+                  {post.grade}
+                </span>
+              )}
               {Array.isArray(post.tags) && post.tags.length > 0 && (
                 <div className="flex flex-wrap gap-2">
                   {post.tags.map((tag) => (
@@ -142,6 +149,42 @@ export default function BlogPost() {
                 </div>
               )}
             </div>
+
+            {/* External link — GitHub if present, else company site */}
+            {(post.github || post.link) && (
+              <div className="mt-5">
+                <a
+                  href={post.github || post.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 border-2 border-primary/60 hover:border-primary text-primary px-4 py-2 text-sm font-medium transition-colors"
+                >
+                  {post.github ? (
+                    <>
+                      <Github className="w-4 h-4" />
+                      View on GitHub
+                    </>
+                  ) : (
+                    <>
+                      <ExternalLink className="w-4 h-4" />
+                      Visit site
+                    </>
+                  )}
+                </a>
+              </div>
+            )}
+
+            {/* Cover image — only visible on the post page */}
+            {post.cover && (
+              <div className="mt-8 overflow-hidden rounded-xl border border-border/60 bg-card">
+                <img
+                  src={post.cover}
+                  alt={post.coverAlt || post.title}
+                  className="w-full h-auto object-cover"
+                />
+              </div>
+            )}
+
             <div className="mt-8 border-t border-border/40" />
           </header>
 
