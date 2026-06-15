@@ -3,7 +3,7 @@ title: AI Customer Support Chatbot
 date: 2026-04-02
 year: 2024–Present
 type: project
-tags: [project, ai, llms]
+tags: [ai, llms]
 slug: ai-customer-support-chatbot
 company: Tryp.com
 link: https://www.tryp.com

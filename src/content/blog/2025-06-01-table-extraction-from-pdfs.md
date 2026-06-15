@@ -3,7 +3,7 @@ title: Deep Learning Table Extraction from Pharmaceutical PDFs
 date: 2026-04-02
 year: 2025
 type: project
-tags: [project, ml, computer-vision]
+tags: [ml, computer-vision]
 slug: table-extraction-from-pdfs
 company: Novo Nordisk
 github: https://github.com/rifolio/TableExtractorDETR

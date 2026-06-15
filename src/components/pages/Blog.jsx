@@ -34,10 +34,14 @@ function BlogCard({ post }) {
       {/* Amber pixel accent bar */}
       <div className="absolute top-0 left-0 right-0 h-0.5 bg-primary group-hover:h-1 transition-all duration-200" />
 
-      {/* Tags */}
-      {post.tags && post.tags.length > 0 && (
-        <div className="flex flex-wrap gap-1.5 mb-3">
-          {post.tags.map((tag) => (
+      {/* Category + tags */}
+      <div className="flex flex-wrap items-center gap-1.5 mb-3">
+        {/* Category badge — solid, distinct from content tags */}
+        <span className="font-pixel text-[9px] leading-none px-2 py-1 bg-primary text-background border border-primary uppercase tracking-wide">
+          {post.type === "project" ? "Project" : "Writing"}
+        </span>
+        {Array.isArray(post.tags) &&
+          post.tags.map((tag) => (
             <span
               key={tag}
               className="font-pixel text-[9px] leading-none px-2 py-1 bg-primary/10 text-primary border border-primary/30"
@@ -45,8 +49,7 @@ function BlogCard({ post }) {
               {tag}
             </span>
           ))}
-        </div>
-      )}
+      </div>
 
       {/* Title */}
       <h2 className="font-display-hero text-lg sm:text-xl font-bold text-foreground group-hover:text-primary transition-colors duration-200 leading-snug mb-2">

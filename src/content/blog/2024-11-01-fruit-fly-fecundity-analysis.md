@@ -3,7 +3,7 @@ title: Statistical Analysis of Fruit Fly Fecundity
 date: 2026-04-02
 year: 2024
 type: project
-tags: [project, statistics, data-science]
+tags: [statistics, data-science]
 slug: fruit-fly-fecundity-analysis
 company: Roskilde University
 link: https://ruc.dk

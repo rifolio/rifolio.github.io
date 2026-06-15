@@ -3,7 +3,7 @@ title: Podcast Watch Time Prediction
 date: 2026-04-02
 year: 2025
 type: project
-tags: [project, ml, data-science]
+tags: [ml, data-science]
 slug: podcast-watch-time-prediction
 company: Roskilde University
 link: https://ruc.dk

@@ -3,7 +3,7 @@ title: AI-Powered Educational Platform
 date: 2026-04-02
 year: 2025–Present
 type: project
-tags: [project, ai, rag]
+tags: [ai, rag]
 slug: peermind-educational-platform
 company: Peermind
 excerpt: Full-stack educational platform with hybrid RAG, adaptive learning, and AI agents for students and teachers.

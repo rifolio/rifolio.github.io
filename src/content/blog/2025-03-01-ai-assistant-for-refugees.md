@@ -3,7 +3,7 @@ title: AI Assistant for Refugees
 date: 2026-04-02
 year: 2025–Present
 type: project
-tags: [project, ai, rag]
+tags: [ai, rag]
 slug: ai-assistant-for-refugees
 company: CoreAI / Bevar Ukraine
 link: https://www.bevarukraine.dk/

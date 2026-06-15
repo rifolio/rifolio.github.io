@@ -2,7 +2,7 @@
 title: How MCP Works, Explained with an Airline Booking Example
 date: 2026-06-08
 type: writing
-tags: [writing, mcp, ai, llm]
+tags: [mcp, ai, llm]
 slug: how-mcp-works-airlines
 excerpt: A plain-English walkthrough of the Model Context Protocol using an airline booking assistant, with a sequence diagram of the full request flow.
 ---

@@ -3,7 +3,7 @@ title: Teaching Assistant — Java Programming
 date: 2026-04-02
 year: 2024
 type: project
-tags: [project, teaching]
+tags: [teaching]
 slug: teaching-assistant-java
 company: Roskilde University
 link: https://ruc.dk

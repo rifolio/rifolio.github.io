@@ -2,7 +2,7 @@
 title: Yello! Vlad here.
 date: 2026-06-15
 type: writing
-tags: [writing, about, ai, startups]
+tags: [about, ai, startups]
 slug: yello-vlad-here
 excerpt: A little about me. AI engineer, co-founder, and MSc student in Human-Centered AI at DTU. Still learning, still building.
 ---

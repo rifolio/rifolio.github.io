@@ -136,9 +136,13 @@ export default function BlogPost() {
                   {post.grade}
                 </span>
               )}
-              {Array.isArray(post.tags) && post.tags.length > 0 && (
-                <div className="flex flex-wrap gap-2">
-                  {post.tags.map((tag) => (
+              <div className="flex flex-wrap gap-2">
+                {/* Category badge — solid, distinct from content tags */}
+                <span className="font-pixel text-[0.55rem] px-2 py-1 rounded border border-primary bg-primary text-background tracking-wide uppercase">
+                  {post.type === "project" ? "Project" : "Writing"}
+                </span>
+                {Array.isArray(post.tags) &&
+                  post.tags.map((tag) => (
                     <span
                       key={tag}
                       className="font-pixel text-[0.55rem] px-2 py-1 rounded border border-primary/30 text-primary/80 bg-primary/5 tracking-wide uppercase"
@@ -146,8 +150,7 @@ export default function BlogPost() {
                       {tag}
                     </span>
                   ))}
-                </div>
-              )}
+              </div>
             </div>
 
             {/* External link — GitHub if present, else company site */}

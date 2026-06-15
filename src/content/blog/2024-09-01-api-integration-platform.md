@@ -3,7 +3,7 @@ title: API Integration Platform
 date: 2026-04-02
 year: 2024
 type: project
-tags: [project, ai, nlp]
+tags: [ai, nlp]
 slug: api-integration-platform
 company: Focalx
 cover: /covers/api-integration.png
