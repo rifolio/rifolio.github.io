@@ -139,12 +139,13 @@ function PixelCanvas({ colors, gap = 5, speed = 30 }) {
  * ------------------------------------------------------------------------ */
 function LogoCell({ company }) {
   const meta = LOGO_ASSETS[company.logo];
+  const label = company.label ?? company.name;
 
   if (!meta) {
     return (
       <div className="relative flex flex-col items-center justify-center gap-2 border border-border/40 bg-card/50 p-4 min-h-[110px]">
         <span className="font-pixel text-[8px] text-muted-foreground text-center leading-relaxed">
-          {company.name}
+          {label}
         </span>
       </div>
     );
@@ -167,7 +168,7 @@ function LogoCell({ company }) {
 
       <img
         src={img}
-        alt={company.name}
+        alt={label}
         loading="lazy"
         className={cn(
           "relative z-[1] w-auto object-contain transition-all duration-300",
@@ -184,7 +185,7 @@ function LogoCell({ company }) {
           "group-hover:text-[var(--brand-color)]/70"
         )}
       >
-        {company.name}
+        {label}
       </span>
     </div>
   );

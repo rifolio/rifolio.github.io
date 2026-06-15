@@ -6,5 +6,5 @@ export const companies = [
   { name: "Novo Nordisk", logo: "NovoNordiskLogo" },
   { name: "Peermind", logo: "PeermindLogo" },
   { name: "Roskilde University", logo: "RucLogo" },
-  { name: "CoreAI / Bevar Ukraine", logo: "CoreAILogo" },
+  { name: "CoreAI", logo: "CoreAILogo", label: "Bevar Ukraine" },
 ];
