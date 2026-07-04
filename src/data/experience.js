@@ -9,7 +9,7 @@ export const experience = [
   {
     company: "Tryp.com",
     role: "AI Engineer",
-    period: "Sep 2024 – Present",
+    period: "Sep 2024 – Jul 2026",
     summary:
       "Built an LLM-powered customer support chatbot handling 10,500+ monthly inquiries with 86% accuracy, plus an agentic trip search engine.",
   },
