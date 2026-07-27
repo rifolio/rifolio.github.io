@@ -251,15 +251,14 @@ h6 {
   border-color: oklch(1 0 0 / 0.22);
 }
 
-/* Status badge */
+/* Status badge — terminal prompt line */
 .status-badge {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 0.7rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.75rem;
   font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
   color: var(--muted-foreground);
   margin-bottom: 1.25rem;
 }
@@ -314,6 +313,22 @@ h6 {
   transform: scaleX(1);
 }
 
+/* CRT scanline mode — toggled by the Konami code (see App.jsx) */
+.crt body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0 2px,
+      oklch(0 0 0 / 0.18) 2px 3px
+    ),
+    radial-gradient(ellipse at center, transparent 60%, oklch(0 0 0 / 0.35));
+}
+
 .font-pixel { font-family: var(--font-pixel); }
 /* Alias for 8bitcn components that use the .retro class */
 .retro {
@@ -324,4 +339,25 @@ h6 {
 .pixelated {
   image-rendering: pixelated;
   image-rendering: crisp-edges;
+}
+
+/* Easter egg: printing the site gets you one line instead (see .print-egg in App.jsx) */
+@media print {
+  html,
+  body {
+    background: #fff;
+  }
+  /* CRT scanlines don't belong on paper */
+  .crt body::after {
+    display: none;
+  }
+  #root > * {
+    display: none;
+  }
+  #root > .print-egg {
+    display: block;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 12pt;
+    color: #000;
+  }
 }

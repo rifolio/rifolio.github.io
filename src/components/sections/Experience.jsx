@@ -3,6 +3,7 @@ import { experience } from "@/data/experience.js";
 import { companies } from "@/data/companies.js";
 import { LOGO_ASSETS } from "@/lib/logo-assets.js";
 import LogoWall from "@/components/sections/LogoWall.jsx";
+import SectionEyebrow from "@/components/ui/section-eyebrow.jsx";
 import { cn } from "@/lib/utils";
 
 // Resolve a company name → its real brand asset metadata (or null if none).
@@ -31,9 +32,7 @@ export default function Experience() {
           className="mb-12 max-w-2xl"
           {...motionEntry}
         >
-          <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground mb-3">
-            Experience
-          </p>
+          <SectionEyebrow path="experience" />
           <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight">
             Where I have worked
           </h2>
@@ -128,9 +127,11 @@ export default function Experience() {
                   </div>
 
                   {/* Summary */}
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {entry.summary}
-                  </p>
+                  {entry.summary && (
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {entry.summary}
+                    </p>
+                  )}
                 </div>
               </motion.article>
             );

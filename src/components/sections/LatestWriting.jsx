@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { loadPosts } from "@/lib/blog.js";
+import SectionEyebrow from "@/components/ui/section-eyebrow.jsx";
 
 const motionSafe = {
   initial: { opacity: 0, y: 12 },
@@ -90,9 +91,7 @@ export default function LatestWriting() {
           {...motionSafe}
         >
           <div className="max-w-2xl">
-            <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground mb-3">
-              From the blog
-            </p>
+            <SectionEyebrow path="blog" />
             <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight">
               Latest writing
             </h2>

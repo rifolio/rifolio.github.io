@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import SectionEyebrow from "@/components/ui/section-eyebrow.jsx";
 
 const motionSafe = {
   initial: { opacity: 0, y: 12 },
@@ -23,9 +24,7 @@ export default function Education() {
     >
       <div className="max-w-6xl mx-auto">
         <motion.div className="mb-12 max-w-2xl" {...motionSafe}>
-          <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground mb-3">
-            Background
-          </p>
+          <SectionEyebrow path="education" />
           <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight">
             Education
           </h2>

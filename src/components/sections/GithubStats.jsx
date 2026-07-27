@@ -13,6 +13,7 @@ import { useGithub } from "@/hooks/use-github.js";
 import AnimatedStat from "@/components/ui/animated-stat.jsx";
 import { ContributionsHeatmap } from "@/components/ui/contributions-heatmap.jsx";
 import Spinner from "@/components/ui/8bit-spinner.jsx";
+import SectionEyebrow from "@/components/ui/section-eyebrow.jsx";
 
 // Simple relative-time helper (no deps)
 function relativeTime(isoString) {
@@ -54,9 +55,7 @@ export function GithubStats() {
       <div className="max-w-6xl mx-auto">
         {/* ── Heading ─────────────────────────────────────────────── */}
         <motion.div className="mb-10 max-w-2xl" {...motionSafe}>
-          <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground mb-3">
-            Open Source
-          </p>
+          <SectionEyebrow path="github" />
 
           <div className="flex items-center gap-3 flex-wrap">
             <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight">

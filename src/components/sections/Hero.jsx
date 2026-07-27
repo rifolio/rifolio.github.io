@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import { Github, Linkedin, Mail, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button.jsx";
+import { BGPattern } from "@/components/ui/bg-pattern";
+import PhotoWindow from "@/components/ui/photo-window.jsx";
 import profilePicture from "@/assets/photo.jpg";
 import { socials } from "@/data/site.js";
 
@@ -10,7 +12,13 @@ function Hero() {
   const cvHref = import.meta.env.BASE_URL + "CV.pdf";
 
   return (
-    <section className="section-wrap min-h-[calc(100vh-3.5rem)] flex items-center safe-px safe-pt py-12 sm:py-16 pb-4 sm:pb-6">
+    <section className="section-wrap relative min-h-[calc(100vh-3.5rem)] flex items-center safe-px safe-pt py-12 sm:py-16 pb-4 sm:pb-6 overflow-hidden">
+      <BGPattern
+        variant="dots"
+        mask="fade-edges"
+        size={24}
+        fill="oklch(1 0 0 / 0.07)"
+      />
       <div className="mx-auto grid w-full max-w-6xl gap-8 lg:grid-cols-12 lg:gap-16 lg:items-center">
         {/* Left: Text */}
         <motion.div
@@ -19,10 +27,15 @@ function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: [0.2, 0.8, 0.2, 1] }}
         >
-          {/* Status badge */}
+          {/* Status badge — terminal prompt flavor */}
           <div className="status-badge">
             <span className="status-dot" />
-            MSc @ DTU · Copenhagen, Denmark
+            <span className="text-primary/80">~/copenhagen</span>
+            <span className="text-muted-foreground/60">·</span>
+            MSc @ DTU
+            <span className="typed-cursor typed-cursor--blink text-primary" aria-hidden="true">
+              _
+            </span>
           </div>
 
           {/* Name */}
@@ -90,13 +103,7 @@ function Hero() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, delay: 0.1, ease: [0.2, 0.8, 0.2, 1] }}
         >
-          <div className="relative">
-            <img
-              src={profilePicture}
-              alt="Vladyslav Horbatenko"
-              className="relative w-40 h-40 sm:w-52 sm:h-52 rounded-full object-cover ring-1 ring-white/10"
-            />
-          </div>
+          <PhotoWindow src={profilePicture} alt="Vladyslav Horbatenko" />
         </motion.div>
       </div>
     </section>

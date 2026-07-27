@@ -12,6 +12,13 @@
 const baseUrl = import.meta.env.BASE_URL || "/";
 
 export const LOGO_ASSETS = {
+  KimeLogo: {
+    img: `${baseUrl}logos/kime.svg`, // near-black artwork → always white
+    colorOnHover: false,
+    brandColor: "#FFFFFF",
+    pixelColors: ["#FFFFFF", "#E5E7EB", "#9CA3AF"],
+    wallHeight: 22,
+  },
   TrypLogo: {
     img: `${baseUrl}logos/tryp.svg`, // baked orange
     colorOnHover: true,

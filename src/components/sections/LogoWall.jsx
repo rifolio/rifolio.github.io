@@ -199,7 +199,7 @@ export default function LogoWall({ className }) {
   return (
     <div
       className={cn(
-        "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-px bg-border/30 border border-border/30",
+        "grid grid-cols-2 sm:grid-cols-3 gap-px bg-border/30 border border-border/30",
         className
       )}
       style={{ gridAutoRows: "110px" }}

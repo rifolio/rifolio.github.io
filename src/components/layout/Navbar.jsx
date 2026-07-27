@@ -12,9 +12,17 @@ export default function Navbar() {
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 py-3 sm:py-4">
         <Link
           to="/"
-          className="font-display-hero text-base font-bold tracking-tight text-foreground hover:text-primary transition-colors"
+          className="font-mono text-sm font-semibold tracking-tight text-foreground hover:text-primary transition-colors"
         >
-          VH
+          vh<span className="text-muted-foreground">:</span>
+          <span className="text-primary">~</span>
+          <span className="text-muted-foreground">$</span>
+          <span
+            className="typed-cursor typed-cursor--blink text-primary"
+            aria-hidden="true"
+          >
+            _
+          </span>
         </Link>
         <nav className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
           {navItems.map(({ id, label }) => (
