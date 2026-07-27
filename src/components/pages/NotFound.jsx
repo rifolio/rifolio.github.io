@@ -1,13 +1,30 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { BGPattern } from "@/components/ui/bg-pattern";
+import SnakeGame from "@/components/ui/snake-game";
 
 export default function NotFound() {
+  const [playing, setPlaying] = useState(false);
+
   // Ensure dark mode is active (same pattern as Home)
   useEffect(() => {
     document.documentElement.classList.add("dark");
     localStorage.setItem("theme", "dark");
   }, []);
+
+  // Press S to insert a coin
+  useEffect(() => {
+    if (playing) return;
+    const onKey = (e) => {
+      if (e.key.toLowerCase() !== "s" || e.metaKey || e.ctrlKey || e.altKey) return;
+      const t = e.target;
+      if (t instanceof HTMLElement && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName)))
+        return;
+      setPlaying(true);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [playing]);
 
   return (
     <div className="relative min-h-screen bg-background text-foreground flex flex-col overflow-hidden">
@@ -31,6 +48,12 @@ export default function NotFound() {
 
       {/* Main content — vertically and horizontally centered */}
       <div className="relative z-10 flex-1 flex flex-col items-center justify-center px-6 py-20 text-center">
+        {playing ? (
+          <div className="mb-12">
+            <SnakeGame onQuit={() => setPlaying(false)} />
+          </div>
+        ) : (
+          <>
         {/* Glitchy scanline overlay on the 404 */}
         <div className="relative mb-8 select-none">
           {/* Shadow layers for depth */}
@@ -63,6 +86,8 @@ export default function NotFound() {
         <p className="font-sans text-sm sm:text-base text-muted-foreground max-w-xs sm:max-w-sm mb-12 leading-relaxed">
           this page doesn&apos;t exist — or it got deleted in a commit.
         </p>
+          </>
+        )}
 
         {/* Action buttons */}
         <div className="flex flex-col sm:flex-row items-center gap-5">
@@ -114,6 +139,30 @@ export default function NotFound() {
         <p className="font-pixel text-[0.5rem] text-muted-foreground/40 mt-16 tracking-widest uppercase">
           GAME OVER — INSERT COIN
         </p>
+
+        {/* The coin slot actually works */}
+        {!playing && (
+          <button
+            type="button"
+            onClick={() => setPlaying(true)}
+            className="
+              mt-5
+              font-pixel text-[0.55rem] tracking-wider uppercase
+              bg-transparent text-primary/70
+              border-2 border-primary/30
+              px-4 py-2.5
+              shadow-[4px_4px_0px_0px_oklch(0.769_0.188_70_/_0.15)]
+              hover:shadow-[2px_2px_0px_0px_oklch(0.769_0.188_70_/_0.15)]
+              hover:translate-x-[2px] hover:translate-y-[2px]
+              hover:text-primary hover:border-primary/60
+              active:shadow-none active:translate-x-[4px] active:translate-y-[4px]
+              transition-all duration-75
+              leading-relaxed
+            "
+          >
+            INSERT COIN — PLAY SNAKE <span className="text-primary/40">[S]</span>
+          </button>
+        )}
       </div>
     </div>
   );

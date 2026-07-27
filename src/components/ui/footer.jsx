@@ -1,5 +1,7 @@
+import { useEffect, useRef } from "react";
 import { Github, Linkedin, Mail, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { unlockAchievement } from "@/lib/achievements.js";
 
 const links = [
   {
@@ -18,6 +20,20 @@ const links = [
 
 export default function FooterSection() {
   const cvHref = import.meta.env.BASE_URL + "CV.pdf";
+  const exitLineRef = useRef(null);
+
+  // Easter egg: reaching the very bottom is an achievement
+  useEffect(() => {
+    const el = exitLineRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      observer.disconnect();
+      unlockAchievement("bottom");
+    });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <footer className="py-16 md:py-24 border-t border-border relative overflow-hidden">
@@ -87,16 +103,18 @@ export default function FooterSection() {
         </div>
 
         <div className="mt-12 flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 border-t border-border/40 text-xs text-muted-foreground">
-          <p>
-            © {new Date().getFullYear()} Vladyslav Horbatenko. All rights
-            reserved.
+          <p ref={exitLineRef} className="font-mono">
+            <span className="text-primary/70 mr-1.5" aria-hidden="true">
+              ❯
+            </span>
+            exit 0 — © {new Date().getFullYear()} Vladyslav Horbatenko
           </p>
           <button
             type="button"
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="hover:text-foreground transition-colors"
+            className="font-mono hover:text-foreground transition-colors"
           >
-            Back to top
+            cd /top ↑
           </button>
         </div>
       </div>
