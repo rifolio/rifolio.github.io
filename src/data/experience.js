@@ -7,6 +7,11 @@ export const experience = [
       "Architected and shipped a full-stack AI-powered educational platform with hybrid RAG, adaptive learning, and LLM-based agentic features.",
   },
   {
+    company: "KIME",
+    role: "AI Engineer (Part-time)",
+    period: "Jul 2026 – Present",
+  },
+  {
     company: "Tryp.com",
     role: "AI Engineer",
     period: "Sep 2024 – Jul 2026",

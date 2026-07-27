@@ -2,6 +2,7 @@
 // src/components/sections/Companies.jsx.
 
 export const companies = [
+  { name: "KIME", logo: "KimeLogo" },
   { name: "Tryp.com", logo: "TrypLogo" },
   { name: "Novo Nordisk", logo: "NovoNordiskLogo" },
   { name: "Peermind", logo: "PeermindLogo" },
