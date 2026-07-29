@@ -1,6 +1,16 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { shapeGithubData } from "../src/lib/github.js";
+import { shapeGithubData, isStale, GITHUB_TTL_MS } from "../src/lib/github.js";
+
+test("isStale gates refetching to once an hour", () => {
+  const now = Date.parse("2026-07-29T12:00:00.000Z");
+  const at = (msAgo) => ({ updatedAt: new Date(now - msAgo).toISOString() });
+  assert.equal(isStale(at(0), now), false);
+  assert.equal(isStale(at(GITHUB_TTL_MS - 1000), now), false);
+  assert.equal(isStale(at(GITHUB_TTL_MS + 1000), now), true);
+  assert.equal(isStale({}, now), true); // no timestamp → fetch
+  assert.equal(isStale({ updatedAt: "garbage" }, now), true);
+});
 
 test("shapeGithubData extracts the stat fields we render", () => {
   const raw = {

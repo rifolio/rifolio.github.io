@@ -74,9 +74,12 @@ export function GithubStats() {
             )}
           </div>
 
-          {/* Updated timestamp */}
+          {/* Updated timestamp — real fetch time, hover for the exact moment */}
           {!refreshing && updated && (
-            <p className="mt-1.5 text-xs text-muted-foreground/60 flex items-center gap-1.5">
+            <p
+              className="mt-1.5 text-xs text-muted-foreground/60 flex items-center gap-1.5"
+              title={new Date(data.updatedAt).toLocaleString()}
+            >
               <Github className="w-3 h-3 opacity-50" />
               updated {updated}
             </p>
