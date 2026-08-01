@@ -17,4 +17,4 @@ GitHub Pages
 pnpm fetch:github
 ```
 
-This also runs automatically via the `prebuild` hook (before every `pnpm build`) and is refreshed daily by a CI cron job.
+This also runs automatically via the `prebuild` hook (before every `pnpm build`) and is refreshed hourly by a CI cron job.
